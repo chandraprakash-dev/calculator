@@ -1,45 +1,58 @@
-a = b = '';
-first = true;
+let a = '';
+let b = '';
+let first = true;
 
-function add(a, b) {
-    a = parseInt(a) + parseInt(b);
+function add() {
+    a = +a + +b;
+    console.log(a);
+    return a;
 }
 
-function subtract(a, b) {
+function subtract() {
     return a - b;
 }
 
-function multiply(a, b) {
+function multiply() {
     return a * b;
 }
 
-function divide(a, b) {
+function divide() {
     return a/b;
 }
 
-function operate(op, a, b) {
-    if (first) [
+function operate(e) {
+    op = e.toElement.textContent;
+    const display = document.querySelector('#display');
+    display.textContent = '';
+
+    if (first) {
         first = false;
-    ]
+        return;
+    }
+
+    answer = 0;
     switch(op) {
         case '+':
-            add(a, b);
+            console.log('case');
+            answer = add();
             break;
         case '-':
-            subtract(a, b);
+            answer = subtract();
             break;
         case '*':
-            multiply(a, b);
+            multiply();
             break;
         case '/':
-            divide(a, b);
+            divide();
             break;
         default:
             console.log('Enter a valid expression');
     }
+    b = '';
+    display.textContent = answer;
 }
 
-function saveA(e) {
+function saveNumber(e) {
     const display = document.querySelector('#display');
     if (first) {
         a += e.toElement.textContent;
@@ -48,14 +61,7 @@ function saveA(e) {
         b += e.toElement.textContent;
         display.textContent = b;
     }
-
-}
-
-function (e) {
-    const display = document.querySelector('#display');
-
-    b += e.toElement.textContent;
-
+    console.log(a, b);
 }
 
 const numbers = document.querySelectorAll('#numbers button');
