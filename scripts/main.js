@@ -1,8 +1,12 @@
-let answer;
+/***********************************************************************************************/
+// Global values in use by all functions
 let a = '';
 let b = '';
 let first = true;
 let op = ''
+let savedB;
+let savedLastOp;
+/***********************************************************************************************/
 
 function add() {
     a = +a + +b;
@@ -28,35 +32,34 @@ function divide() {
 
 
 function operate(e) {
-    if (op == '=') {
-        const opButton = document.querySelector(`#operators [value = '${op}']`);
-        opButton.classList.remove('selected-operator');
-    }
-    
     lastOp = op;
-    op = this.textContent;
-    this.classList.add('selected-operator');
+    console.log('last op is' +lastOp);
+    
+    // if (this) {
+        // console.log(this);
+        op = this.textContent;
+        this.classList.add('selected-operator');
+    // }
 
     if (first){
         first = false;
         return;
     }
     
-    const display = document.querySelector('#display');
     display.textContent = '';
 
     switch(lastOp) {
         case '+':
-            answer = add();
+            add();
             break;
         case '-':
-            answer = subtract();
+            subtract();
             break;
         case '*':
-            answer = multiply();
+            multiply();
             break;
         case '/':
-            answer = divide();
+            divide();
             break;
         case '=':
             // answer = ;
@@ -64,16 +67,38 @@ function operate(e) {
         default:
             console.log('Enter a valid expression');
     }
+
+    console.log('op is' + op);
+    if (op == '=') {
+        const opButton = document.querySelector(`#operators [value = '${op}']`);
+        opButton.classList.remove('selected-operator');
+    //     // save b, lastop
+    //     if(lastOp != '=') {
+    //         savedB = b;
+    //         savedLastOp = lastOp;
+    //     } else {
+    //         b = savedB;
+    //         op = savedLastOp;
+    //         console.log('b is' + b + 'op is' + op);
+    //         operate();
+    //     }
+    }
+
+    // reset b to take new value
     b = '';
-    display.textContent = answer;
+    display.textContent = a;
 }
 
 function saveNumber(e) {
-    const display = document.querySelector('#display');
-
     const opButton = document.querySelector(`#operators [value = '${op}']`);
     if (opButton){
         opButton.classList.remove('selected-operator');
+    }
+    if (op == '=') {
+        a = '';
+        b = '';
+        op = '';
+        first = true;
     }
 
     if (first) {
@@ -92,3 +117,4 @@ numbers.forEach(number => number.addEventListener('click', saveNumber));
 const operators = document.querySelectorAll('#operators button');
 operators.forEach(operator => operator.addEventListener('click',operate));
 
+const display = document.querySelector('#display');
