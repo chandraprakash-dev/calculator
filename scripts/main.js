@@ -1,6 +1,8 @@
+let answer;
 let a = '';
 let b = '';
 let first = true;
+let op = ''
 
 function add() {
     a = +a + +b;
@@ -9,41 +11,55 @@ function add() {
 }
 
 function subtract() {
-    return a - b;
+    a -= b;
+    return a;
 }
 
 function multiply() {
-    return a * b;
+    a *= b;
+    console.log(a);
+    return a;
 }
 
 function divide() {
-    return a/b;
+    a /= b;
+    return a;
 }
 
-function operate(e) {
-    op = e.toElement.textContent;
-    const display = document.querySelector('#display');
-    display.textContent = '';
 
-    if (first) {
+function operate(e) {
+    if (op == '=') {
+        const opButton = document.querySelector(`#operators [value = '${op}']`);
+        opButton.classList.remove('selected-operator');
+    }
+    
+    lastOp = op;
+    op = this.textContent;
+    this.classList.add('selected-operator');
+
+    if (first){
         first = false;
         return;
     }
+    
+    const display = document.querySelector('#display');
+    display.textContent = '';
 
-    answer = 0;
-    switch(op) {
+    switch(lastOp) {
         case '+':
-            console.log('case');
             answer = add();
             break;
         case '-':
             answer = subtract();
             break;
         case '*':
-            multiply();
+            answer = multiply();
             break;
         case '/':
-            divide();
+            answer = divide();
+            break;
+        case '=':
+            // answer = ;
             break;
         default:
             console.log('Enter a valid expression');
@@ -54,11 +70,17 @@ function operate(e) {
 
 function saveNumber(e) {
     const display = document.querySelector('#display');
+
+    const opButton = document.querySelector(`#operators [value = '${op}']`);
+    if (opButton){
+        opButton.classList.remove('selected-operator');
+    }
+
     if (first) {
-        a += e.toElement.textContent;
+        a += this.textContent;
         display.textContent = a;
     } else {
-        b += e.toElement.textContent;
+        b += this.textContent;
         display.textContent = b;
     }
     console.log(a, b);
@@ -69,3 +91,4 @@ numbers.forEach(number => number.addEventListener('click', saveNumber));
 
 const operators = document.querySelectorAll('#operators button');
 operators.forEach(operator => operator.addEventListener('click',operate));
+

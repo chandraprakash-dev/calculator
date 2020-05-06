@@ -7,3 +7,11 @@
     height: 50px;
     border: 1px solid black;
 }
+
+#operators button:focus {
+    outline: none;
+}
+
+.selected-operator {
+    background-color: blue;
+}
