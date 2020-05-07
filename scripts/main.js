@@ -3,51 +3,63 @@
 let a = '';
 let b = '';
 let first = true;
-let op = ''
+
+let op = '';
+let lastOp = '';
+
 let savedB;
 let savedLastOp;
 /***********************************************************************************************/
 
+function reset() {
+    a = '';
+    b = '';
+    op = '';
+    first = true;
+    savedB
+}
+
 function add() {
     a = +a + +b;
-    console.log(a);
+    console.log('in add' + a);
+    b = 0;
     return a;
 }
 
 function subtract() {
     a -= b;
+    console.log('in sub' + a);
+    b = 0;
     return a;
+
 }
 
 function multiply() {
     a *= b;
-    console.log(a);
+    console.log('in mul' + a);
+    b = 1;
     return a;
+
 }
 
 function divide() {
     a /= b;
+    console.log('in div' + a);
+    b = 1;
     return a;
+
 }
 
-
-function operate(e) {
+function operate() {
     lastOp = op;
-    console.log('last op is' +lastOp);
-    
-    // if (this) {
-        // console.log(this);
-        op = this.textContent;
-        this.classList.add('selected-operator');
-    // }
+    op = this.textContent;
+    this.classList.add('selected-operator');
 
     if (first){
         first = false;
         return;
     }
     
-    display.textContent = '';
-
     switch(lastOp) {
         case '+':
             add();
@@ -61,46 +73,26 @@ function operate(e) {
         case '/':
             divide();
             break;
-        case '=':
-            // answer = ;
-            break;
         default:
             console.log('Enter a valid expression');
-    }
-
-    console.log('op is' + op);
-    if (op == '=') {
-        const opButton = document.querySelector(`#operators [value = '${op}']`);
-        opButton.classList.remove('selected-operator');
-    //     // save b, lastop
-    //     if(lastOp != '=') {
-    //         savedB = b;
-    //         savedLastOp = lastOp;
-    //     } else {
-    //         b = savedB;
-    //         op = savedLastOp;
-    //         console.log('b is' + b + 'op is' + op);
-    //         operate();
-    //     }
-    }
-
-    // reset b to take new value
-    b = '';
+    }        
     display.textContent = a;
 }
 
-function saveNumber(e) {
+function equals() {
+    // case 1: follows a number
+
+    // case 2: follows a operator
+        // if b is empty, b = a
+
+}
+
+function saveNumber() {
     const opButton = document.querySelector(`#operators [value = '${op}']`);
     if (opButton){
         opButton.classList.remove('selected-operator');
     }
-    if (op == '=') {
-        a = '';
-        b = '';
-        op = '';
-        first = true;
-    }
-
+    
     if (first) {
         a += this.textContent;
         display.textContent = a;
@@ -108,7 +100,7 @@ function saveNumber(e) {
         b += this.textContent;
         display.textContent = b;
     }
-    console.log(a, b);
+    console.log('in save number' + a, b);
 }
 
 const numbers = document.querySelectorAll('#numbers button');
@@ -116,5 +108,8 @@ numbers.forEach(number => number.addEventListener('click', saveNumber));
 
 const operators = document.querySelectorAll('#operators button');
 operators.forEach(operator => operator.addEventListener('click',operate));
+
+const equalOperator = document.querySelector(`button[value = '=']`);
+equalOperator.addEventListener('click', equals);
 
 const display = document.querySelector('#display');
