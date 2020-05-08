@@ -2,16 +2,14 @@
 // Global values in use by all functions
 let a = '';
 let b = '';
-
 let op = '';
-let lastOp = '';
+let e;
 /***********************************************************************************************/
 
 function reset() {
     a = '';
     b = '';
     op = '';
-    savedB;
 }
 
 function add() {
@@ -30,8 +28,8 @@ function divide() {
     a /= b;
 }
 
-function checkCases() {
-    switch(lastOp) {
+function operate(operator) {
+    switch(operator) {
         case '+':
             add();
             break;
@@ -44,46 +42,47 @@ function checkCases() {
         case '/':
             divide();
             break;
-        default:
-            console.log('Enter a valid expression');
     }
 }
 
-function operate() {
+function handleOperator() {
     lastOp = op;
-    op = this.textContent;
-
-    if(lastOp != ''){
-        lastOpButton = document.querySelector(`button[value = '${lastOp}']`);
-        lastOpButton.classList.remove('selected-operator');
+    if(e) {
+        b = '';
+        e = false;
     }
-    // highlight the operator 
+
+    op = this.textContent;
     opButton = document.querySelector(`button[value = '${op}']`);
     opButton.classList.add('selected-operator');
     
+    if (lastOp == '') return;
+    
+    lastOpButton = document.querySelector(`button[value = '${lastOp}']`);
+    lastOpButton.classList.remove('selected-operator');
+    
     if(b == '') return;
     
-    checkCases();
+    operate(lastOp);
+    b = '';  
 
-    // reset b for next input
-    b = '';    
     display.textContent = a;
 }
 
 function equals() {
-    // case 1: follows a number
+    if(op == '') return;
+    opButton = document.querySelector(`button[value = '${op}']`);
+    opButton.classList.remove('selected-operator');
 
-    // case 2: follows a operator
-        // if b is empty, b = a
-
+    if (b == '') {
+        b = a;
+    }
+    e = true;
+    operate(op);
+    display.textContent = a;
 }
 
 function saveNumber() {
-    const opButton = document.querySelector(`#operators [value = '${op}']`);
-    if (opButton){
-        opButton.classList.remove('selected-operator');
-    }
-    
     if (op == '') {
         a += this.textContent;
         display.textContent = a;
@@ -97,7 +96,7 @@ const numbers = document.querySelectorAll('#numbers button');
 numbers.forEach(number => number.addEventListener('click', saveNumber));
 
 const operators = document.querySelectorAll('#operators button');
-operators.forEach(operator => operator.addEventListener('click',operate));
+operators.forEach(operator => operator.addEventListener('click',handleOperator));
 
 const equalOperator = document.querySelector(`button[value = '=']`);
 equalOperator.addEventListener('click', equals);
