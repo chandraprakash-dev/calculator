@@ -2,7 +2,6 @@
 // Global values in use by all functions
 let a = '';
 let b = '';
-let first = true;
 
 let op = '';
 let lastOp = '';
@@ -15,37 +14,26 @@ function reset() {
     a = '';
     b = '';
     op = '';
-    first = true;
-    savedB
+    savedB;
 }
 
 function add() {
     a = +a + +b;
-    console.log('in add' + a);
-    b = 0;
     return a;
 }
 
 function subtract() {
     a -= b;
-    console.log('in sub' + a);
-    b = 0;
     return a;
-
 }
 
 function multiply() {
     a *= b;
-    console.log('in mul' + a);
-    b = 1;
     return a;
-
 }
 
 function divide() {
     a /= b;
-    console.log('in div' + a);
-    b = 1;
     return a;
 
 }
@@ -53,12 +41,16 @@ function divide() {
 function operate() {
     lastOp = op;
     op = this.textContent;
-    this.classList.add('selected-operator');
 
-    if (first){
-        first = false;
-        return;
+    if(lastOp != ''){
+        lastOpButton = document.querySelector(`button[value = '${lastOp}']`);
+        lastOpButton.classList.remove('selected-operator');
     }
+    // highlight the operator 
+    opButton = document.querySelector(`button[value = '${op}']`);
+    opButton.classList.add('selected-operator');
+    
+    if(b == '') return;
     
     switch(lastOp) {
         case '+':
@@ -75,7 +67,10 @@ function operate() {
             break;
         default:
             console.log('Enter a valid expression');
-    }        
+    }    
+
+    // reset b for next input
+    b = '';    
     display.textContent = a;
 }
 
@@ -93,14 +88,13 @@ function saveNumber() {
         opButton.classList.remove('selected-operator');
     }
     
-    if (first) {
+    if (op == '') {
         a += this.textContent;
         display.textContent = a;
     } else {
         b += this.textContent;
         display.textContent = b;
     }
-    console.log('in save number' + a, b);
 }
 
 const numbers = document.querySelectorAll('#numbers button');
@@ -111,5 +105,8 @@ operators.forEach(operator => operator.addEventListener('click',operate));
 
 const equalOperator = document.querySelector(`button[value = '=']`);
 equalOperator.addEventListener('click', equals);
+
+const acButton = document.querySelector(`button[value = 'AC']`);
+acButton.addEventListener('click', reset);
 
 const display = document.querySelector('#display');
