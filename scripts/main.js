@@ -6,12 +6,6 @@ let op = '';
 let e;
 /***********************************************************************************************/
 
-function reset() {
-    a = '';
-    b = '';
-    op = '';
-}
-
 function add() {
     a = +a + +b;
 }
@@ -47,23 +41,27 @@ function operate(operator) {
 
 function handleOperator() {
     lastOp = op;
+
+    // If we just came from =, clear value in b
     if(e) {
         b = '';
         e = false;
     }
-
+    
+    if(lastOp != ''){
+        lastOpButton = document.querySelector(`button[value = '${lastOp}']`);
+        lastOpButton.classList.remove('selected-operator');
+    }
+    
     op = this.textContent;
     opButton = document.querySelector(`button[value = '${op}']`);
     opButton.classList.add('selected-operator');
     
-    if (lastOp == '') return;
-    
-    lastOpButton = document.querySelector(`button[value = '${lastOp}']`);
-    lastOpButton.classList.remove('selected-operator');
-    
-    if(b == '') return;
-    
+    if (lastOp == '' || b == '') return;
+        
     operate(lastOp);
+
+    // reset b to take in next operand
     b = '';  
 
     display.textContent = a;
@@ -77,7 +75,9 @@ function equals() {
     if (b == '') {
         b = a;
     }
-    e = true;
+
+    if(!e) e = true;
+
     operate(op);
     display.textContent = a;
 }
@@ -101,7 +101,7 @@ operators.forEach(operator => operator.addEventListener('click',handleOperator))
 const equalOperator = document.querySelector(`button[value = '=']`);
 equalOperator.addEventListener('click', equals);
 
-const acButton = document.querySelector(`button[value = 'AC']`);
-acButton.addEventListener('click', reset);
+// const acButton = document.querySelector(`button[value = 'AC']`);
+// acButton.addEventListener('click', reset);
 
 const display = document.querySelector('#display');
