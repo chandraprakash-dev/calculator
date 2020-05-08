@@ -5,9 +5,6 @@ let b = '';
 
 let op = '';
 let lastOp = '';
-
-let savedB;
-let savedLastOp;
 /***********************************************************************************************/
 
 function reset() {
@@ -19,23 +16,37 @@ function reset() {
 
 function add() {
     a = +a + +b;
-    return a;
 }
 
 function subtract() {
     a -= b;
-    return a;
 }
 
 function multiply() {
     a *= b;
-    return a;
 }
 
 function divide() {
     a /= b;
-    return a;
+}
 
+function checkCases() {
+    switch(lastOp) {
+        case '+':
+            add();
+            break;
+        case '-':
+            subtract();
+            break;
+        case '*':
+            multiply();
+            break;
+        case '/':
+            divide();
+            break;
+        default:
+            console.log('Enter a valid expression');
+    }
 }
 
 function operate() {
@@ -52,22 +63,7 @@ function operate() {
     
     if(b == '') return;
     
-    switch(lastOp) {
-        case '+':
-            add();
-            break;
-        case '-':
-            subtract();
-            break;
-        case '*':
-            multiply();
-            break;
-        case '/':
-            divide();
-            break;
-        default:
-            console.log('Enter a valid expression');
-    }    
+    checkCases();
 
     // reset b for next input
     b = '';    
