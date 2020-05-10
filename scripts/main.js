@@ -30,6 +30,14 @@ function divide() {
     a /= b;
 }
 
+function toggleSign() {
+    a *= -1;
+}
+
+function percentage() {
+    a /= 100;
+}
+
 function operate(operator) {
     switch(operator) {
         case '+':
@@ -44,10 +52,16 @@ function operate(operator) {
         case '/':
             divide();
             break;
+        case '+-':
+            toggleSign();
+            break;
+        case '%':
+            percentage();
+            break;
     }
 }
 
-function handleOperator() {
+function handleBinaryOperator() {
     lastOp = op;
 
     // If we just came from =, clear value in b
@@ -90,6 +104,16 @@ function equals() {
     display.textContent = a;
 }
 
+function handleUnaryOperator() {
+    if(a == '') return;
+    const opButton = document.querySelector(`button[value='${this.value}']`);
+    opButton.classList.add('selected-operator');
+
+    operate(this.value);
+
+    display.textContent = a;
+}
+
 function saveNumber() {
     if (op == '') {
         a += this.textContent;
@@ -103,11 +127,14 @@ function saveNumber() {
 const numbers = document.querySelectorAll('#numbers button');
 numbers.forEach(number => number.addEventListener('click', saveNumber));
 
-const operators = document.querySelectorAll('#operators button');
-operators.forEach(operator => operator.addEventListener('click',handleOperator));
+const binaryOperators = document.querySelectorAll('#binary-operators button');
+binaryOperators.forEach(operator => operator.addEventListener('click',handleBinaryOperator));
 
 const equalOperator = document.querySelector(`button[value = '=']`);
 equalOperator.addEventListener('click', equals);
+
+const unaryOperators = document.querySelectorAll('#unary-operators button');
+unaryOperators.forEach(unaryOperator => unaryOperator.addEventListener('click', handleUnaryOperator));
 
 const acButton = document.querySelector(`button[value = 'AC']`);
 acButton.addEventListener('click', reset);
