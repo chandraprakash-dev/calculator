@@ -3,7 +3,11 @@
 let a = '';
 let b = '';
 let op = '';
+
+// flag e for checking presence in equals
 let e;
+// flag s for checking presence in saveNumber
+let s;
 /***********************************************************************************************/
 function reset() {
     a = '';
@@ -14,6 +18,18 @@ function reset() {
     display.textContent = +a;
     const selected = document.querySelector('.selected-operator');
     if(selected) selected.classList.remove('selected-operator');
+}
+
+function deleteInput() {
+    if (!s) return;
+
+    if(op == '') {
+        a = a.slice(0, -1);
+        display.textContent = +a;
+    } else {
+        b = b.slice(0, -1);
+        display.textContent = +b;
+    }
 }
 
 function rounded(val) {
@@ -51,14 +67,22 @@ function divide() {
 }
 
 function toggleSign() {
-    a *= -1;
+    if(op == ''){
+        a *= -1;
+    } else {
+        b *= -1;
+    }
 }
 
 function percentage() {
-    a /= 100;
+    if(op == '') {
+        a /= 100;
+    } else {
+        b /= 100;
+    }
 }
 
-function operate(operator) {
+function operateBinary(operator) {
     switch(operator) {
         case '+':
             add();
@@ -72,14 +96,7 @@ function operate(operator) {
         case '/':
             divide();
             break;
-        case '+-':
-            toggleSign();
-            break;
-        case '%':
-            percentage();
-            break;
     }
-
     if(a % 1) {
         display.textContent = rounded(a);
     } else {
@@ -87,15 +104,31 @@ function operate(operator) {
     }
 }
 
-function handleBinaryOperator() {
-    lastOp = op;
+function operateUnary(operator) {
+    switch(operator) {
+        case '+-':
+            toggleSign();
+            break;
+        case '%':
+            percentage();
+            break;
+    }
+    if(op == ''){
+        display.textContent = a;
+    } else {
+        display.textContent = b;
+    }
+}
 
+function handleBinaryOperator() {
     // If we just came from =, clear value in b
     if(e) {
         b = '';
         e = false;
     }
-    
+    if(s) s = false;
+
+    lastOp = op;
     if(lastOp != ''){
         lastOpButton = document.querySelector(`button[value = '${lastOp}']`);
         lastOpButton.classList.remove('selected-operator');
@@ -105,44 +138,45 @@ function handleBinaryOperator() {
     opButton = document.querySelector(`button[value = '${op}']`);
     opButton.classList.add('selected-operator');
     
-    if (lastOp == '' || a == 'Not a Number' || b == '') return;
-        
-    operate(lastOp);
-
+    if (lastOp == '' || a == 'Not a Number' || b == '') return;   
+    operateBinary(lastOp);
     // reset b to take in next operand
     b = '';  
 }
 
+function handleUnaryOperator() {
+    if(s) s = false;
+
+    const selected = document.querySelector('.selected-operator');
+    if(selected) selected.classList.remove('selected-operator');
+
+    if(a == '' || a == 'Not a Number') return;
+    operateUnary(this.value);
+}
+
 function equals() {
-    if(op == '' || a == 'Not a Number') return;
+    if(!e) e = true;
+    if(s) s = false;
+
     opButton = document.querySelector(`button[value = '${op}']`);
     opButton.classList.remove('selected-operator');
 
+    if(op == '' || a == 'Not a Number') return;
     if (b == '') {
         b = a;
     }
-
-    if(!e) e = true;
-
-    operate(op);
-}
-
-function handleUnaryOperator() {
-    if(a == '' || a == 'Not a Number') return;
-    const opButton = document.querySelector(`button[value='${this.value}']`);
-    opButton.classList.add('selected-operator');
-
-    operate(this.value);
+    operateBinary(op);
 }
 
 function saveNumber() {
+    if(!s) s = true;
     if (a == 'Not a Number') return
     if (op == '') {
         a += this.textContent;
-        display.textContent = a;
+        display.textContent = +a;
     } else {
         b += this.textContent;
-        display.textContent = b;
+        display.textContent = +b;
     }
 }
 
@@ -160,5 +194,8 @@ unaryOperators.forEach(unaryOperator => unaryOperator.addEventListener('click', 
 
 const acButton = document.querySelector(`button[value = 'AC']`);
 acButton.addEventListener('click', reset);
+
+const delButton = document.querySelector(`button[value = 'del']`);
+delButton.addEventListener('click', deleteInput);
 
 const display = document.querySelector('#display');
