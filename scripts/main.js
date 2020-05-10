@@ -12,7 +12,22 @@ function reset() {
     e = false;
 
     display.textContent = +a;
-    document.querySelector('.selected-operator').classList.remove('selected-operator');
+    const selected = document.querySelector('.selected-operator');
+    if(selected) selected.classList.remove('selected-operator');
+}
+
+function rounded(val) {
+    console.log(val);
+    let exponent;
+    if(val.toString().indexOf('e') !== -1) {
+        exponent = val.toString().split('e')[1];
+        val = val.toString().split('e')[0];
+    }  
+    val = Math.round((+val + Number.EPSILON) * (10 ** 10)) / (10 ** 10);
+    if(exponent) 
+        return val + 'e' + exponent;
+
+    return val;    
 }
 
 function add() {
@@ -64,6 +79,12 @@ function operate(operator) {
             percentage();
             break;
     }
+
+    if(a % 1) {
+        display.textContent = rounded(a);
+    } else {
+        display.textContent = a;
+    }
 }
 
 function handleBinaryOperator() {
@@ -90,8 +111,6 @@ function handleBinaryOperator() {
 
     // reset b to take in next operand
     b = '';  
-
-    display.textContent = a;
 }
 
 function equals() {
@@ -106,7 +125,6 @@ function equals() {
     if(!e) e = true;
 
     operate(op);
-    display.textContent = a;
 }
 
 function handleUnaryOperator() {
@@ -115,8 +133,6 @@ function handleUnaryOperator() {
     opButton.classList.add('selected-operator');
 
     operate(this.value);
-
-    display.textContent = a;
 }
 
 function saveNumber() {
