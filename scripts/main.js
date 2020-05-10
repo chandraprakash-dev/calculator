@@ -27,6 +27,10 @@ function multiply() {
 }
 
 function divide() {
+    if(b == 0) {
+        a = 'Not a Number';
+        return;
+    }
     a /= b;
 }
 
