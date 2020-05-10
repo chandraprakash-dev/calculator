@@ -12,6 +12,7 @@ function reset() {
     e = false;
 
     display.textContent = +a;
+    document.querySelector('.selected-operator').classList.remove('selected-operator');
 }
 
 function add() {
@@ -83,7 +84,7 @@ function handleBinaryOperator() {
     opButton = document.querySelector(`button[value = '${op}']`);
     opButton.classList.add('selected-operator');
     
-    if (lastOp == '' || b == '') return;
+    if (lastOp == '' || a == 'Not a Number' || b == '') return;
         
     operate(lastOp);
 
@@ -94,7 +95,7 @@ function handleBinaryOperator() {
 }
 
 function equals() {
-    if(op == '') return;
+    if(op == '' || a == 'Not a Number') return;
     opButton = document.querySelector(`button[value = '${op}']`);
     opButton.classList.remove('selected-operator');
 
@@ -109,7 +110,7 @@ function equals() {
 }
 
 function handleUnaryOperator() {
-    if(a == '') return;
+    if(a == '' || a == 'Not a Number') return;
     const opButton = document.querySelector(`button[value='${this.value}']`);
     opButton.classList.add('selected-operator');
 
@@ -119,6 +120,7 @@ function handleUnaryOperator() {
 }
 
 function saveNumber() {
+    if (a == 'Not a Number') return
     if (op == '') {
         a += this.textContent;
         display.textContent = a;
