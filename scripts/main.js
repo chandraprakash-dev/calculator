@@ -5,6 +5,14 @@ let b = '';
 let op = '';
 let e;
 /***********************************************************************************************/
+function reset() {
+    a = '';
+    b = '';
+    op = '';
+    e = false;
+
+    display.textContent = +a;
+}
 
 function add() {
     a = +a + +b;
@@ -101,7 +109,7 @@ operators.forEach(operator => operator.addEventListener('click',handleOperator))
 const equalOperator = document.querySelector(`button[value = '=']`);
 equalOperator.addEventListener('click', equals);
 
-// const acButton = document.querySelector(`button[value = 'AC']`);
-// acButton.addEventListener('click', reset);
+const acButton = document.querySelector(`button[value = 'AC']`);
+acButton.addEventListener('click', reset);
 
 const display = document.querySelector('#display');
