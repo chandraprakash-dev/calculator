@@ -8,8 +8,12 @@
     border: 1px solid black;
 }
 
+button:focus {
+    outline: none;
+}
+
 .selected-operator {
     background-color: blue;
-    outline: none !important;
+    outline: none;
     box-shadow: none;
 }

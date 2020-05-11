@@ -186,9 +186,6 @@ function keyboardInput(e) {
     const button = document.querySelector(`button[value='${e.key}']`);
     if(!button) return;
     button.click();
-    // if(+e.key >= 0 && +e.key <= 9) {
-    //     // console.log(e);
-    // }
 }
 
 const numbers = document.querySelectorAll('#numbers button');
