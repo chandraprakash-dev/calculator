@@ -142,12 +142,20 @@ function handleBinaryOperator() {
     opButton = document.querySelector(`button[value = '${op}']`);
     opButton.classList.add('selected-operator');
     
-    if(a == '') expr += a;
-    expr += op;
-    exprDisplay.textContent = expr;
-    
+    // expr block
+    if(lastOp == '') {
+        if(a == '') expr += '0' + op;
+        else expr += a + op;
+    } else {
+        expr += b + op;
+    }
+    console.log(expr);
+    // expr block
+
     if (lastOp == '' || a == 'Not a Number' || b == '') return;   
+
     operateBinary(lastOp);
+    
     // reset b to take in next operand
     b = '';  
 }
@@ -171,6 +179,9 @@ function equals() {
         opButton.classList.remove('selected-operator');
     }
 
+    expr += b + '=';
+    console.log(expr);
+
     if(op == '' || a == 'Not a Number') return;
     if (b == '') {
         b = a;
@@ -190,16 +201,12 @@ function saveNumber() {
     if(char == '.' && text.indexOf('.') !== -1) return;
     
     if (op == '') {
-        console.log(this.textContent);
         a += char;
-        display.textContent = a;
+        display.textContent = +a;
     } else {
-        console.log(this.textContent);
         b += char;
-        display.textContent = b;
+        display.textContent = +b;
     }
-    expr += char;
-    exprDisplay.textContent = expr;
 }
 
 function keyboardInput(e) {
