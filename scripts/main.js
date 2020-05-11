@@ -173,11 +173,19 @@ function equals() {
 function saveNumber() {
     if(!s) s = true;
     if (a == 'Not a Number') return
+
+    const char = this.textContent;
+    const text = display.textContent;
+
+    if(char == '.' && text.indexOf('.') !== -1) return;
+    
     if (op == '') {
-        a += this.textContent;
+        console.log(this.textContent);
+        a += char;
         display.textContent = a;
     } else {
-        b += this.textContent;
+        console.log(this.textContent);
+        b += char;
         display.textContent = b;
     }
 }
