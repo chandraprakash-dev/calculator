@@ -3,6 +3,7 @@
 let a = '';
 let b = '';
 let op = '';
+let expr = '';
 
 // flag e for checking presence in equals
 let e;
@@ -13,9 +14,10 @@ function reset() {
     a = '';
     b = '';
     op = '';
-    e = false;
+    expr = '';
 
     display.textContent = +a;
+    exprDisplay.textContent = expr;
     const selected = document.querySelector('.selected-operator');
     if(selected) selected.classList.remove('selected-operator');
 }
@@ -140,6 +142,10 @@ function handleBinaryOperator() {
     opButton = document.querySelector(`button[value = '${op}']`);
     opButton.classList.add('selected-operator');
     
+    if(a == '') expr += a;
+    expr += op;
+    exprDisplay.textContent = expr;
+    
     if (lastOp == '' || a == 'Not a Number' || b == '') return;   
     operateBinary(lastOp);
     // reset b to take in next operand
@@ -160,8 +166,10 @@ function equals() {
     if(!e) e = true;
     if(s) s = false;
 
-    opButton = document.querySelector(`button[value = '${op}']`);
-    opButton.classList.remove('selected-operator');
+    if(op != '') {
+        opButton = document.querySelector(`button[value = '${op}']`);
+        opButton.classList.remove('selected-operator');
+    }
 
     if(op == '' || a == 'Not a Number') return;
     if (b == '') {
@@ -190,6 +198,8 @@ function saveNumber() {
         b += char;
         display.textContent = b;
     }
+    expr += char;
+    exprDisplay.textContent = expr;
 }
 
 function keyboardInput(e) {
@@ -219,3 +229,4 @@ delButton.addEventListener('click', deleteInput);
 window.addEventListener('keydown', keyboardInput);
 
 const display = document.querySelector('#display');
+const exprDisplay = document.querySelector('#expression');
