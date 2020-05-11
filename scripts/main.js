@@ -172,7 +172,9 @@ function equals() {
 
 function saveNumber() {
     if(!s) s = true;
-    if (a == 'Not a Number') return
+    if (a == 'Not a Number') {
+        reset();
+    }
 
     const char = this.textContent;
     const text = display.textContent;
