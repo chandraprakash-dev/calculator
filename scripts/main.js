@@ -25,15 +25,17 @@ function deleteInput() {
 
     if(op == '') {
         a = a.slice(0, -1);
-        display.textContent = +a;
+        display.textContent = a;
     } else {
         b = b.slice(0, -1);
-        display.textContent = +b;
+        display.textContent = b;
+    }
+    if (display.textContent == ''){
+        display.textContent = +display.textContent;  
     }
 }
 
 function rounded(val) {
-    console.log(val);
     let exponent;
     if(val.toString().indexOf('e') !== -1) {
         exponent = val.toString().split('e')[1];
@@ -173,11 +175,20 @@ function saveNumber() {
     if (a == 'Not a Number') return
     if (op == '') {
         a += this.textContent;
-        display.textContent = +a;
+        display.textContent = a;
     } else {
         b += this.textContent;
-        display.textContent = +b;
+        display.textContent = b;
     }
+}
+
+function keyboardInput(e) {
+    const button = document.querySelector(`button[value='${e.key}']`);
+    if(!button) return;
+    button.click();
+    // if(+e.key >= 0 && +e.key <= 9) {
+    //     // console.log(e);
+    // }
 }
 
 const numbers = document.querySelectorAll('#numbers button');
@@ -195,7 +206,9 @@ unaryOperators.forEach(unaryOperator => unaryOperator.addEventListener('click', 
 const acButton = document.querySelector(`button[value = 'AC']`);
 acButton.addEventListener('click', reset);
 
-const delButton = document.querySelector(`button[value = 'del']`);
+const delButton = document.querySelector(`button[value = 'Backspace']`);
 delButton.addEventListener('click', deleteInput);
+
+window.addEventListener('keydown', keyboardInput);
 
 const display = document.querySelector('#display');
