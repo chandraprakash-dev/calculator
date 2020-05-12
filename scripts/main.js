@@ -118,7 +118,7 @@ function operateUnary(operator) {
             percentage();
             break;
     }
-    if(op == ''){
+    if(op == '' || e){
         display.textContent = a;
     } else {
         display.textContent = b;
