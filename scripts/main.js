@@ -72,7 +72,7 @@ function divide() {
 }
 
 function toggleSign() {
-    if(op == '' || e){
+    if(b == '' || e){
         a *= -1;
     } else {
         b *= -1;
@@ -80,7 +80,7 @@ function toggleSign() {
 }
 
 function percentage() {
-    if(op == '' || e) {
+    if(b == '' || e) {
         a /= 100;
     } else {
         b /= 100;
@@ -118,7 +118,7 @@ function operateUnary(operator) {
             percentage();
             break;
     }
-    if(op == '' || e){
+    if(b == '' || e){
         display.textContent = a;
     } else {
         display.textContent = b;
