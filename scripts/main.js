@@ -18,6 +18,7 @@ function reset() {
 
     display.textContent = +a;
     exprDisplay.textContent = expr;
+
     const selected = document.querySelector('.selected-operator');
     if(selected) selected.classList.remove('selected-operator');
 }
@@ -143,14 +144,13 @@ function handleBinaryOperator() {
     opButton = document.querySelector(`button[value = '${op}']`);
     opButton.classList.add('selected-operator');
     
-    // first operator clicked, b will be '' 
-    if (lastOp == '') {
-        expr += +a + op;
+    if(a == 'Not a Number') return;  
+    if(b == '') {
+        // expr = expr.slice(0, -1) + op;
+        expr += a + op;
         exprDisplay.textContent = expr;
         return;
-    } 
-
-    if(a == 'Not a Number' || b == '') return;  
+    }
     
     // update expr for subsequent operations
     expr += b + op;
@@ -181,24 +181,21 @@ function equals() {
         opButton.classList.remove('selected-operator');
     }
     
-    if(op == '') {
-        expr = +a + '=';
+    if(a == 'Not a Number') return;
+    if (op == '') {
+        expr = +a + op + b + '=';
         exprDisplay.textContent = expr;
         return;
     }
 
-    if (a == 'Not a Number') return;
     if (b == '') {
-        b = a;
-        expr += b;
-    } else {
-        expr = a + op + b;
+        b = +a;
     }
     
-    expr += '=';
-    operateBinary(op);
-
+    expr = +a + op + b + '=';
     exprDisplay.textContent = expr;
+
+    operateBinary(op);
 }
 
 function saveNumber() {
