@@ -72,7 +72,7 @@ function divide() {
 }
 
 function toggleSign() {
-    if(op == ''){
+    if(op == '' || e){
         a *= -1;
     } else {
         b *= -1;
@@ -80,7 +80,7 @@ function toggleSign() {
 }
 
 function percentage() {
-    if(op == '') {
+    if(op == '' || e) {
         a /= 100;
     } else {
         b /= 100;
@@ -126,7 +126,7 @@ function operateUnary(operator) {
 }
 
 function handleBinaryOperator() {
-    // If we just came from =, clear value in b
+    // If we just came from =, clear value in b and expr
     if(e) {
         b = '';
         expr = '';
