@@ -128,6 +128,7 @@ function handleBinaryOperator() {
     // If we just came from =, clear value in b
     if(e) {
         b = '';
+        expr = '';
         e = false;
     }
     if(s) s = false;
@@ -142,17 +143,18 @@ function handleBinaryOperator() {
     opButton = document.querySelector(`button[value = '${op}']`);
     opButton.classList.add('selected-operator');
     
-    // expr block
-    if(lastOp == '') {
-        if(a == '') expr += '0' + op;
-        else expr += a + op;
-    } else {
-        expr += b + op;
-    }
-    console.log(expr);
-    // expr block
+    // first operator clicked, b will be '' 
+    if (lastOp == '') {
+        expr += +a + op;
+        exprDisplay.textContent = expr;
+        return;
+    } 
 
-    if (lastOp == '' || a == 'Not a Number' || b == '') return;   
+    if(a == 'Not a Number' || b == '') return;  
+    
+    // update expr for subsequent operations
+    expr += b + op;
+    exprDisplay.textContent = expr;
 
     operateBinary(lastOp);
     
@@ -178,15 +180,25 @@ function equals() {
         opButton = document.querySelector(`button[value = '${op}']`);
         opButton.classList.remove('selected-operator');
     }
+    
+    if(op == '') {
+        expr = +a + '=';
+        exprDisplay.textContent = expr;
+        return;
+    }
 
-    expr += b + '=';
-    console.log(expr);
-
-    if(op == '' || a == 'Not a Number') return;
+    if (a == 'Not a Number') return;
     if (b == '') {
         b = a;
+        expr += b;
+    } else {
+        expr = a + op + b;
     }
+    
+    expr += '=';
     operateBinary(op);
+
+    exprDisplay.textContent = expr;
 }
 
 function saveNumber() {
