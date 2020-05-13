@@ -254,7 +254,7 @@ binaryOperators.forEach(operator => operator.addEventListener('click',handleBina
 const equalOperator = document.querySelector(`button[value = '=']`);
 equalOperator.addEventListener('click', equals);
 
-const unaryOperators = document.querySelectorAll('#unary-operators button');
+const unaryOperators = document.querySelectorAll('.unary-operators');
 unaryOperators.forEach(unaryOperator => unaryOperator.addEventListener('click', handleUnaryOperator));
 
 const acButton = document.querySelector(`button[value = 'AC']`);
