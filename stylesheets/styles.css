@@ -35,8 +35,20 @@ main{
 #button-area {
     grid-area: work-area;
     display: grid;
+    grid-auto-flow: column;
     grid-template: repeat(4,1fr)/ repeat(5, 1fr);
-    /* grid-template-areas: "numbers operators last" ;  */
+    grid-template-areas: "num-7 num-8 num-9 ... ..."
+                         "num-4 num-5 num-6 ... ..."
+                         "num-1 num-2 num-3 ... ..."
+                         "sign num-0 dot ... ...";
+}
+
+button[value='+-'] {
+    grid-area: sign;
+}
+
+button[value='.'] {
+    grid-area: dot;
 }
 
 #expression, #output {
