@@ -245,10 +245,23 @@ function keyboardInput(e) {
     button.click();
 }
 
-const numbers = document.querySelectorAll('#numbers button');
+// code starts from here
+const buttonArea = document.querySelector('#button-area');
+for (let i = 9; i >= 0; i --) {
+    const tmpButton = document.createElement('button');
+    tmpButton.classList.add('numbers');
+    tmpButton.value = i;
+    tmpButton.textContent = i;
+    tmpButton.style.gridArea = `num-${i}`;
+    buttonArea.appendChild(tmpButton);
+}
+
+console.log(buttonArea);
+
+const numbers = document.querySelectorAll('.numbers');
 numbers.forEach(number => number.addEventListener('click', saveNumber));
 
-const binaryOperators = document.querySelectorAll('#binary-operators button');
+const binaryOperators = document.querySelectorAll('.binary-operators');
 binaryOperators.forEach(operator => operator.addEventListener('click',handleBinaryOperator));
 
 const equalOperator = document.querySelector(`button[value = '=']`);
