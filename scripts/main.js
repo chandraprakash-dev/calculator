@@ -16,7 +16,7 @@ function reset() {
     op = '';
     expr = '';
 
-    display.textContent = +a;
+    output.textContent = +a;
     exprDisplay.textContent = expr;
 
     const selected = document.querySelector('.selected-operator');
@@ -28,13 +28,13 @@ function deleteInput() {
 
     if(op == '') {
         a = a.slice(0, -1);
-        display.textContent = a;
+        output.textContent = a;
     } else {
         b = b.slice(0, -1);
-        display.textContent = b;
+        output.textContent = b;
     }
-    if (display.textContent == ''){
-        display.textContent = +display.textContent;  
+    if (output.textContent == ''){
+        output.textContent = +output.textContent;  
     }
 }
 
@@ -75,19 +75,19 @@ function toggleSign() {
     if(b == ''){
         if(op == '') {
             a *= -1;
-            display.textContent = a;   
+            output.textContent = a;   
         }
         else {
             b = -a;
-            display.textContent = b;
+            output.textContent = b;
         }
     } else {
         if(e) {
             a *= -1;
-            display.textContent = a;
+            output.textContent = a;
         } else {
             b *= -1;
-            display.textContent = b;
+            output.textContent = b;
         }
     }
 }
@@ -96,19 +96,19 @@ function percentage() {
     if(b == ''){
         if(op == '') {
             a /= 100;
-            display.textContent = a;   
+            output.textContent = a;   
         }
         else {
             b = a/100;
-            display.textContent = b;
+            output.textContent = b;
         }
     } else {
         if(e) {
             a /= 100;
-            display.textContent = a;
+            output.textContent = a;
         } else {
             b /= 100;
-            display.textContent = b;
+            output.textContent = b;
         }
     }
 }
@@ -129,9 +129,9 @@ function operateBinary(operator) {
             break;
     }
     if(a % 1) {
-        display.textContent = rounded(a);
+        output.textContent = rounded(a);
     } else {
-        display.textContent = a;
+        output.textContent = a;
     }
 }
 
@@ -226,16 +226,16 @@ function saveNumber() {
     }
 
     const char = this.textContent;
-    const text = display.textContent;
+    const text = output.textContent;
 
     if(char == '.' && text.indexOf('.') !== -1) return;
     
     if (op == '') {
         a += char;
-        display.textContent = +a;
+        output.textContent = +a;
     } else {
         b += char;
-        display.textContent = +b;
+        output.textContent = +b;
     }
 }
 
@@ -265,5 +265,5 @@ delButton.addEventListener('click', deleteInput);
 
 window.addEventListener('keydown', keyboardInput);
 
-const display = document.querySelector('#display');
+const output = document.querySelector('#output');
 const exprDisplay = document.querySelector('#expression');
