@@ -204,7 +204,7 @@ function equals() {
     
     if(a == 'Not a Number') return;
     if (op == '') {
-        expr = +a + op + b + '=';
+        expr = +a + '=';
         exprDisplay.textContent = expr;
         return;
     }
