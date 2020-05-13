@@ -35,19 +35,9 @@ main{
 #button-area {
     grid-area: work-area;
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr;
-    grid-template-areas: "numbers operators last" ;
+    grid-template: repeat(4,1fr)/ repeat(5, 1fr);
+    /* grid-template-areas: "numbers operators last" ;  */
 }
-
-#numbers {
-    grid-area: numbers;
-    /* display: flex; */
-}
-
-#operators {
-    grid-area: operators;
-}
-
 
 #expression, #output {
     width: 200px;
