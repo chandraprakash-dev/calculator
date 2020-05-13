@@ -168,7 +168,7 @@ function handleBinaryOperator() {
     if(a == 'Not a Number') return;  
     if(b == '') {
         // expr = expr.slice(0, -1) + op;
-        expr += a + op;
+        expr = a + op;
         exprDisplay.textContent = expr;
         return;
     }
