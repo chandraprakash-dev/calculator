@@ -72,15 +72,23 @@ function divide() {
 }
 
 function toggleSign() {
-    if(b == '' || e){
-        a *= -1;
+    if(b == ''){
+        if(op == '') {
+            a *= -1;
+            display.textContent = a;   
+        }
+        else {
+            b = -a;
+            display.textContent = b;
+        }
     } else {
         b *= -1;
+        display.textContent = b;
     }
 }
 
 function percentage() {
-    if(b == '' || e) {
+    if(b == '') {
         a /= 100;
     } else {
         b /= 100;
@@ -117,11 +125,6 @@ function operateUnary(operator) {
         case '%':
             percentage();
             break;
-    }
-    if(b == '' || e){
-        display.textContent = a;
-    } else {
-        display.textContent = b;
     }
 }
 
