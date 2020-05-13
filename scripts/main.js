@@ -161,7 +161,7 @@ function handleBinaryOperator() {
         lastOpButton.classList.remove('selected-operator');
     }
     
-    op = this.textContent;
+    op = this.value;
     opButton = document.querySelector(`button[value = '${op}']`);
     opButton.classList.add('selected-operator');
     
@@ -225,7 +225,7 @@ function saveNumber() {
         reset();
     }
 
-    const char = this.textContent;
+    const char = this.value;
     const text = output.textContent;
 
     if(char == '.' && text.indexOf('.') !== -1) return;
