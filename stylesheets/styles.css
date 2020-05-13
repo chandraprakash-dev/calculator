@@ -13,8 +13,8 @@ body {
 
 main{
     border: 1px solid black;
-    width: 50%;
-    height: 50%;
+    width: 400px;
+    height: 60%;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -29,7 +29,25 @@ main{
 
 #display {
     grid-area: screen;
+    background-color: cornflowerblue;
 }
+
+#button-area {
+    grid-area: work-area;
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+    grid-template-areas: "numbers operators last" ;
+}
+
+#numbers {
+    grid-area: numbers;
+    /* display: flex; */
+}
+
+#operators {
+    grid-area: operators;
+}
+
 
 #expression, #output {
     width: 200px;
