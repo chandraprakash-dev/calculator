@@ -82,16 +82,34 @@ function toggleSign() {
             display.textContent = b;
         }
     } else {
-        b *= -1;
-        display.textContent = b;
+        if(e) {
+            a *= -1;
+            display.textContent = a;
+        } else {
+            b *= -1;
+            display.textContent = b;
+        }
     }
 }
 
 function percentage() {
-    if(b == '') {
-        a /= 100;
+    if(b == ''){
+        if(op == '') {
+            a /= 100;
+            display.textContent = a;   
+        }
+        else {
+            b = a/100;
+            display.textContent = b;
+        }
     } else {
-        b /= 100;
+        if(e) {
+            a /= 100;
+            display.textContent = a;
+        } else {
+            b /= 100;
+            display.textContent = b;
+        }
     }
 }
 
