@@ -240,7 +240,10 @@ function saveNumber() {
 }
 
 function keyboardInput(e) {
-    const button = document.querySelector(`button[value='${e.key}']`);
+    let button = document.querySelector(`button[value='${e.key}']`);
+    if(e.key == 'Enter'){
+        button = document.querySelector('button[value=\'=\']');
+    }
     if(!button) return;
     button.click();
 }
