@@ -13,7 +13,9 @@ body {
 }
 
 main{
+    background-color: rgb(155, 57, 235);
     border: 1px solid black;
+    border-radius: 30px;
     width: 350px;
     height: 60%;
     position: absolute;
@@ -31,12 +33,15 @@ main{
 #display {
     grid-area: screen;
     background-color: cornflowerblue;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
 }
 
 #expression, #output {
-    height: 50%;
+    height: 40%;
     display: flex;
     overflow: auto;
+    padding: 10px;
 }
 
 #expression {
@@ -48,8 +53,7 @@ main{
 #output {
     justify-content: flex-end;
     align-items: flex-start;
-    padding-top: 10px;
-    font-size: xx-large;
+    font-size: 2.5em;
 }
 
 #button-area {
@@ -72,23 +76,20 @@ div[id='.'] {
 }
 
 #button-area div {
-    background-color: darkorchid;
-    border: 1px solid black;
+    /* background-color: darkorchid; */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 button {
-    width:60px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     font-size: large;
     font-weight: 700;
     /* border-radius: 50%; */
 }
-
-
 
 button:focus {
     outline: none;
