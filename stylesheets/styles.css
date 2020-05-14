@@ -51,6 +51,12 @@ button[value='.'] {
     grid-area: dot;
 }
 
+button {
+    font-size: large;
+    font-weight: 700;
+    /* border-radius: 50%; */
+}
+
 #expression, #output {
     height: 50%;
     border: 1px solid black;
