@@ -248,12 +248,15 @@ function keyboardInput(e) {
 // code starts from here
 const buttonArea = document.querySelector('#button-area');
 for (let i = 9; i >= 0; i --) {
+    const tmpDiv = document.createElement('div');
+    tmpDiv.setAttribute('id', i);
     const tmpButton = document.createElement('button');
     tmpButton.classList.add('numbers');
     tmpButton.value = i;
     tmpButton.textContent = i;
-    tmpButton.style.gridArea = `num-${i}`;
-    buttonArea.appendChild(tmpButton);
+    tmpDiv.appendChild(tmpButton);
+    tmpDiv.style.gridArea = `num-${i}`;
+    buttonArea.appendChild(tmpDiv);
 }
 
 console.log(buttonArea);

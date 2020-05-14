@@ -43,11 +43,11 @@ main{
                          "sign num-0 dot ... ...";
 }
 
-button[value='+-'] {
+div[id='+-'] {
     grid-area: sign;
 }
 
-button[value='.'] {
+div[id='.'] {
     grid-area: dot;
 }
 
