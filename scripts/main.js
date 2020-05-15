@@ -228,14 +228,14 @@ function saveNumber() {
     const char = this.value;
     const text = output.textContent;
 
-    if(char == '.' && text.indexOf('.') !== -1){
-        return;
-    }
+    if(char == '.' && text.indexOf('.') !== -1 ) return;
     
     if (op == '') {
+        if (char == '0' && a == '') return;
         a += char;
         output.textContent = +a;
     } else {
+        if (char == '0' && b == '') return;
         b += char;
         output.textContent = +b;
     }
