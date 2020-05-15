@@ -44,7 +44,7 @@ function rounded(val) {
         exponent = val.toString().split('e')[1];
         val = val.toString().split('e')[0];
     }  
-    val = Math.round((+val + Number.EPSILON) * (10 ** 10)) / (10 ** 10);
+    val = Math.round((+val + Number.EPSILON) * (10 ** 6)) / (10 ** 6);
     if(exponent) 
         return val + 'e' + exponent;
 
@@ -128,7 +128,7 @@ function operateBinary(operator) {
             divide();
             break;
     }
-    if(a % 1) {
+    if(a % 1 || a.toString().indexOf('e') !== -1) {
         output.textContent = rounded(a);
     } else {
         output.textContent = a;
@@ -228,7 +228,9 @@ function saveNumber() {
     const char = this.value;
     const text = output.textContent;
 
-    if(char == '.' && text.indexOf('.') !== -1) return;
+    if(char == '.' && text.indexOf('.') !== -1){
+        return;
+    }
     
     if (op == '') {
         a += char;
