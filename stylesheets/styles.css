@@ -14,8 +14,7 @@ body {
 
 main{
     background-color: rgb(155, 57, 235);
-    border: 1px solid black;
-    border-radius: 30px;
+    border-radius: 50px;
     width: 350px;
     height: 60%;
     position: absolute;
@@ -33,18 +32,19 @@ main{
 #display {
     grid-area: screen;
     background-color: cornflowerblue;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
 }
 
 #expression, #output {
     display: flex;
     overflow: auto;
     padding: 5px 10px;
+    word-wrap: break-word;
 }
 
 #expression {
-    height: 45%;
+    height: 50%;
     text-align: right;
     justify-content: flex-end;
     align-items: flex-end;
@@ -58,6 +58,7 @@ main{
 }
 
 #button-area {
+    height: 90%;
     grid-area: work-area;
     display: grid;
     grid-auto-flow: row;
