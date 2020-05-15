@@ -7,8 +7,6 @@ let expr = '';
 
 // flag e for checking presence in equals
 let e;
-// flag s for checking presence in saveNumber
-let s;
 /***********************************************************************************************/
 function reset() {
     a = '';
@@ -24,14 +22,26 @@ function reset() {
 }
 
 function deleteInput() {
-    if (!s) return;
+    a = a.toString();
+    b = b.toString();
 
-    if(op == '') {
-        a = a.slice(0, -1);
-        output.textContent = a;
+    if(b == ''){
+        if(op == '') {
+            a = a.slice(0, -1);
+            output.textContent = a;   
+        }
+        else {
+            b = a.slice(0, -1);
+            output.textContent = b;
+        }
     } else {
-        b = b.slice(0, -1);
-        output.textContent = b;
+        if(e) {
+            a = a.slice(0, -1);
+            output.textContent = a;
+        } else {
+            b = b.slice(0, -1);
+            output.textContent = b;
+        }
     }
     if (output.textContent == ''){
         output.textContent = +output.textContent;  
@@ -153,8 +163,7 @@ function handleBinaryOperator() {
         expr = '';
         e = false;
     }
-    if(s) s = false;
-
+    
     lastOp = op;
     if(lastOp != ''){
         lastOpButton = document.querySelector(`button[value = '${lastOp}']`);
@@ -167,14 +176,13 @@ function handleBinaryOperator() {
     
     if(a == 'Not a Number') return;  
     if(b == '') {
-        // expr = expr.slice(0, -1) + op;
-        expr = a + op;
+        expr = +a + op;
         exprDisplay.textContent = expr;
         return;
     }
     
     // update expr for subsequent operations
-    expr += b + op;
+    expr += +b + op;
     exprDisplay.textContent = expr;
 
     operateBinary(lastOp);
@@ -184,8 +192,6 @@ function handleBinaryOperator() {
 }
 
 function handleUnaryOperator() {
-    if(s) s = false;
-
     const selected = document.querySelector('.selected-operator');
     if(selected) selected.classList.remove('selected-operator');
 
@@ -195,7 +201,6 @@ function handleUnaryOperator() {
 
 function equals() {
     if(!e) e = true;
-    if(s) s = false;
 
     if(op != '') {
         opButton = document.querySelector(`button[value = '${op}']`);
@@ -213,14 +218,13 @@ function equals() {
         b = +a;
     }
     
-    expr = +a + op + b + '=';
+    expr = +a + op + +b + '=';
     exprDisplay.textContent = expr;
 
     operateBinary(op);
 }
 
 function saveNumber() {
-    if(!s) s = true;
     if (a == 'Not a Number') {
         reset();
     }
