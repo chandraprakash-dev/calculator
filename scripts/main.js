@@ -163,7 +163,7 @@ function handleBinaryOperator() {
         expr = '';
         e = false;
     }
-    
+
     lastOp = op;
     if(lastOp != ''){
         lastOpButton = document.querySelector(`button[value = '${lastOp}']`);
@@ -243,6 +243,19 @@ function saveNumber() {
         b += char;
         output.textContent = +b;
     }
+
+    const style = window.getComputedStyle(output);
+    let fontSize = parseInt(style.getPropertyValue('font-size'));
+    console.log(fontSize);
+    console.log(output.offsetWidth, output.scrollWidth);
+
+    for (let i = fontSize; i >= 0; i--) {
+        let overflow = isOverflown(output);
+        if (overflow) {
+            fontSize--;
+            output.style.fontSize = fontSize + "px";
+        }
+    }
 }
 
 function keyboardInput(e) {
@@ -254,8 +267,12 @@ function keyboardInput(e) {
     if(!button) return;
     button.click();
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Main code starts from here
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// code starts from here
+// Create divs with buttons for numbers and append them to button area
 const buttonArea = document.querySelector('#button-area');
 for (let i = 9; i >= 0; i --) {
     const tmpDiv = document.createElement('div');
@@ -269,6 +286,7 @@ for (let i = 9; i >= 0; i --) {
     buttonArea.appendChild(tmpDiv);
 }
 
+// Select relevant elements and add appropriate event listeners
 const numbers = document.querySelectorAll('.numbers');
 numbers.forEach(number => number.addEventListener('click', saveNumber));
 
@@ -289,5 +307,17 @@ delButton.addEventListener('click', deleteInput);
 
 window.addEventListener('keydown', keyboardInput);
 
+const display = document.querySelector('#display');
 const output = document.querySelector('#output');
 const exprDisplay = document.querySelector('#expression');
+
+
+// Since the output of operations can be very large, we need to handle the display
+// such that the text doesn't overflow display, thereby breaking the layout. Note 
+// that rounding will only limit the number of digits after the decimal point, not
+// the total length of the number. Therefore, this is a necessary additional step
+function isOverflown (element) {
+    return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+}
+
+
