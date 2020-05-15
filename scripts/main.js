@@ -242,6 +242,7 @@ function saveNumber() {
 function keyboardInput(e) {
     let button = document.querySelector(`button[value='${e.key}']`);
     if(e.key == 'Enter'){
+        e.preventDefault();
         button = document.querySelector('button[value=\'=\']');
     }
     if(!button) return;
@@ -261,8 +262,6 @@ for (let i = 9; i >= 0; i --) {
     tmpDiv.style.gridArea = `num-${i}`;
     buttonArea.appendChild(tmpDiv);
 }
-
-console.log(buttonArea);
 
 const numbers = document.querySelectorAll('.numbers');
 numbers.forEach(number => number.addEventListener('click', saveNumber));
