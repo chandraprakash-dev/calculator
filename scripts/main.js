@@ -8,14 +8,25 @@ let expr = '';
 // flag e for checking presence in equals
 let e;
 /***********************************************************************************************/
+function outputContent(val) {
+    output.textContent = val;
+    if (output.textContent == ''){
+        output.textContent = +output.textContent;  
+    }
+}
+
+function exprContent(val) {
+    exprDisplay.textContent = val;
+}
+
 function reset() {
     a = '';
     b = '';
     op = '';
     expr = '';
 
-    output.textContent = +a;
-    exprDisplay.textContent = expr;
+    outputContent(+a);
+    exprContent(expr);
 
     const selected = document.querySelector('.selected-operator');
     if(selected) selected.classList.remove('selected-operator');
@@ -28,23 +39,20 @@ function deleteInput() {
     if(b == ''){
         if(op == '') {
             a = a.slice(0, -1);
-            output.textContent = a;   
+            outputContent(a);   
         }
         else {
             b = a.slice(0, -1);
-            output.textContent = b;
+            outputContent(b);
         }
     } else {
         if(e) {
             a = a.slice(0, -1);
-            output.textContent = a;
+            outputContent(a);
         } else {
             b = b.slice(0, -1);
-            output.textContent = b;
+            outputContent(b);
         }
-    }
-    if (output.textContent == ''){
-        output.textContent = +output.textContent;  
     }
 }
 
@@ -85,19 +93,19 @@ function toggleSign() {
     if(b == ''){
         if(op == '') {
             a *= -1;
-            output.textContent = a;   
+            outputContent(a);   
         }
         else {
             b = -a;
-            output.textContent = b;
+            outputContent(b);
         }
     } else {
         if(e) {
             a *= -1;
-            output.textContent = a;
+            outputContent(a);
         } else {
             b *= -1;
-            output.textContent = b;
+            outputContent(b);
         }
     }
 }
@@ -106,19 +114,19 @@ function percentage() {
     if(b == ''){
         if(op == '') {
             a /= 100;
-            output.textContent = a;   
+            outputContent(a);   
         }
         else {
             b = a/100;
-            output.textContent = b;
+            outputContent(b);
         }
     } else {
         if(e) {
             a /= 100;
-            output.textContent = a;
+            outputContent(a);
         } else {
             b /= 100;
-            output.textContent = b;
+            outputContent(b);
         }
     }
 }
@@ -139,9 +147,9 @@ function operateBinary(operator) {
             break;
     }
     if(a % 1 || a.toString().indexOf('e') !== -1) {
-        output.textContent = rounded(a);
+        outputContent(rounded(a));
     } else {
-        output.textContent = a;
+        outputContent(a);
     }
 }
 
@@ -177,13 +185,13 @@ function handleBinaryOperator() {
     if(a == 'Not a Number') return;  
     if(b == '') {
         expr = +a + op;
-        exprDisplay.textContent = expr;
+        exprContent(expr);
         return;
     }
     
     // update expr for subsequent operations
     expr += +b + op;
-    exprDisplay.textContent = expr;
+    exprContent(expr);
 
     operateBinary(lastOp);
     
@@ -210,7 +218,7 @@ function equals() {
     if(a == 'Not a Number') return;
     if (op == '') {
         expr = +a + '=';
-        exprDisplay.textContent = expr;
+        exprContent(expr);
         return;
     }
 
@@ -219,7 +227,7 @@ function equals() {
     }
     
     expr = +a + op + +b + '=';
-    exprDisplay.textContent = expr;
+    exprContent(expr);
 
     operateBinary(op);
 }
@@ -237,25 +245,12 @@ function saveNumber() {
     if (op == '') {
         if (char == '0' && a == '') return;
         a += char;
-        output.textContent = +a;
+        outputContent(+a);
     } else {
         if (char == '0' && b == '') return;
         b += char;
-        output.textContent = +b;
+        outputContent(+b);
     }
-
-    // const style = window.getComputedStyle(output);
-    // let fontSize = parseInt(style.getPropertyValue('font-size'));
-    // console.log(fontSize);
-    // console.log(output.offsetWidth, output.scrollWidth);
-
-    // for (let i = fontSize; i >= 0; i--) {
-    //     let overflow = isOverflown(output);
-    //     if (overflow) {
-    //         fontSize--;
-    //         output.style.fontSize = fontSize + "px";
-    //     }
-    // }
 }
 
 function keyboardInput(e) {
@@ -307,14 +302,27 @@ delButton.addEventListener('click', deleteInput);
 
 window.addEventListener('keydown', keyboardInput);
 
-const display = document.querySelector('#display');
 const output = document.querySelector('#output p');
+output.addEventListener('change', () => console.log('hi'));
 const exprDisplay = document.querySelector('#expression p');
 
 // Since the output of operations can be very large, we need to handle the display
 // such that the text doesn't overflow display, thereby breaking the layout. Note 
 // that rounding will only limit the number of digits after the decimal point, not
 // the total length of the number. Therefore, this is a necessary additional step
+const style = window.getComputedStyle(output);
+let fontSize = parseInt(style.getPropertyValue('font-size'));
+console.log(fontSize);
+console.log(output.scrollWidth, output.clientWidth);
+
+// for (let i = fontSize; i >= 0; i--) {
+//     let overflow = isOverflown(output);
+//     if (overflow) {
+//         fontSize--;
+//         output.style.fontSize = fontSize + "px";
+//     }
+// }
+
 function isOverflown (element) {
     return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
 }
