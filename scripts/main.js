@@ -244,18 +244,18 @@ function saveNumber() {
         output.textContent = +b;
     }
 
-    const style = window.getComputedStyle(output);
-    let fontSize = parseInt(style.getPropertyValue('font-size'));
-    console.log(fontSize);
-    console.log(output.offsetWidth, output.scrollWidth);
+    // const style = window.getComputedStyle(output);
+    // let fontSize = parseInt(style.getPropertyValue('font-size'));
+    // console.log(fontSize);
+    // console.log(output.offsetWidth, output.scrollWidth);
 
-    for (let i = fontSize; i >= 0; i--) {
-        let overflow = isOverflown(output);
-        if (overflow) {
-            fontSize--;
-            output.style.fontSize = fontSize + "px";
-        }
-    }
+    // for (let i = fontSize; i >= 0; i--) {
+    //     let overflow = isOverflown(output);
+    //     if (overflow) {
+    //         fontSize--;
+    //         output.style.fontSize = fontSize + "px";
+    //     }
+    // }
 }
 
 function keyboardInput(e) {
@@ -308,9 +308,8 @@ delButton.addEventListener('click', deleteInput);
 window.addEventListener('keydown', keyboardInput);
 
 const display = document.querySelector('#display');
-const output = document.querySelector('#output');
-const exprDisplay = document.querySelector('#expression');
-
+const output = document.querySelector('#output p');
+const exprDisplay = document.querySelector('#expression p');
 
 // Since the output of operations can be very large, we need to handle the display
 // such that the text doesn't overflow display, thereby breaking the layout. Note 

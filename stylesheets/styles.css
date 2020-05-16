@@ -38,26 +38,33 @@ main{
 }
 
 #expression, #output {
+    text-align: end;
     overflow: hidden;
-    /* display: flex; */
-     padding: 5px 10px;
-    /*word-wrap: break-word; */
+    padding: 5px 10px;
 }
 
 #expression {
     width: 350px;
     height: 70px;
-    text-align: right;
-    justify-content: flex-end;
-    align-items: flex-end;
+    position: relative;
 }
 
 #output {
     width: 350px;
     height: 70px;
-    justify-content: flex-end;
-    align-items: flex-start;
-    font-size: 2.5em;
+}
+
+#output p, #expression p {
+    position: absolute;
+    right: 10px;
+}
+
+#output p {
+    font-size: 2.5em; 
+}
+
+#expression p{
+    bottom: 0;
 }
 
 #button-area {
@@ -81,7 +88,6 @@ div[id='.'] {
 }
 
 #button-area div {
-    /* background-color: darkorchid; */
     display: flex;
     justify-content: center;
     align-items: center;
