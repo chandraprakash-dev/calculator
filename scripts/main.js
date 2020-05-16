@@ -13,10 +13,42 @@ function outputContent(val) {
     if (output.textContent == ''){
         output.textContent = +output.textContent;  
     }
+    fitText(output);
 }
 
 function exprContent(val) {
     exprDisplay.textContent = val;
+    fitText(exprDisplay);
+}
+
+function fitText(element) {
+    // Since the output of operations can be very large, we need to handle the display
+    // such that the text doesn't overflow display, thereby breaking the layout. Note 
+    // that rounding will only limit the number of digits after the decimal point, not
+    // the total length of the number. Therefore, this is a necessary additional step
+    const style = window.getComputedStyle(element);
+    let fontSize = parseInt(style.getPropertyValue('font-size'));
+    console.log(fontSize);
+    console.log(output.scrollWidth, output.clientWidth);
+    if (!isOverflown(output)) {
+        // reset the font size if it is not overflowing anymore
+        if(fontSize != 40) output.style.fontSize = '2.5em';
+        return;
+    }
+
+    for (let i = fontSize; i >= 0; i--) {
+        let overflow = isOverflown(output);
+        if (overflow) {
+            fontSize--;
+            output.style.fontSize = fontSize + "px";
+        }
+    }
+
+    
+}
+
+function isOverflown (element) {
+    return element.scrollWidth > element.clientWidth;
 }
 
 function reset() {
@@ -303,28 +335,6 @@ delButton.addEventListener('click', deleteInput);
 window.addEventListener('keydown', keyboardInput);
 
 const output = document.querySelector('#output p');
-output.addEventListener('change', () => console.log('hi'));
 const exprDisplay = document.querySelector('#expression p');
-
-// Since the output of operations can be very large, we need to handle the display
-// such that the text doesn't overflow display, thereby breaking the layout. Note 
-// that rounding will only limit the number of digits after the decimal point, not
-// the total length of the number. Therefore, this is a necessary additional step
-const style = window.getComputedStyle(output);
-let fontSize = parseInt(style.getPropertyValue('font-size'));
-console.log(fontSize);
-console.log(output.scrollWidth, output.clientWidth);
-
-// for (let i = fontSize; i >= 0; i--) {
-//     let overflow = isOverflown(output);
-//     if (overflow) {
-//         fontSize--;
-//         output.style.fontSize = fontSize + "px";
-//     }
-// }
-
-function isOverflown (element) {
-    return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
-}
 
 

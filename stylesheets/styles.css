@@ -47,7 +47,7 @@ main{
 
 
 #expression p, #output p {
-    width: 100%;
+    width: 90%;
     position: absolute;
     right: 10px;
 }
