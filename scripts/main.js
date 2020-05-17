@@ -18,7 +18,7 @@ function outputContent(val) {
 
 function exprContent(val) {
     exprDisplay.textContent = val;
-    fitText(exprDisplay);
+    // fitText(exprDisplay);
 }
 
 function fitText(element) {
@@ -28,8 +28,6 @@ function fitText(element) {
     // the total length of the number. Therefore, this is a necessary additional step
     const style = window.getComputedStyle(element);
     let fontSize = parseInt(style.getPropertyValue('font-size'));
-    console.log(fontSize);
-    console.log(output.scrollWidth, output.clientWidth);
     if (!isOverflown(output)) {
         // reset the font size if it is not overflowing anymore
         if(fontSize != 40) output.style.fontSize = '2.5em';
@@ -272,16 +270,15 @@ function saveNumber() {
     const char = this.value;
     const text = output.textContent;
 
-    if(char == '.' && text.indexOf('.') !== -1 ) return;
     
     if (op == '') {
-        if (char == '0' && a == '') return;
+        if ( (char == '0' && a == '') || (char == '.' && a.toString().indexOf('.') != -1) ) return;
         a += char;
-        outputContent(+a);
+        outputContent(a);
     } else {
-        if (char == '0' && b == '') return;
+        if ( (char == '0' && b == '') || (char == '.' && b.toString().indexOf('.') != -1) )return;
         b += char;
-        outputContent(+b);
+        outputContent(b);
     }
 }
 
