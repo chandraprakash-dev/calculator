@@ -42,6 +42,7 @@ main{
     width:100%;
     grid-area: screen;
     background-color: rgb(94, 191, 255);
+    color: white;
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
 }
@@ -89,6 +90,11 @@ div[id='.'] {
     grid-area: dot;
 }
 
+/* .operator-div {
+    border-radius: 10px;
+    background-color: rgb(47, 42, 128);
+} */
+
 #button-area div {
     display: flex;
     justify-content: center;
@@ -110,6 +116,15 @@ button {
 
 button:focus {
     outline: none;
+}
+
+.numbers:hover, .numbers:focus {
+    background-color: white;
+    color:black;
+}
+
+.numbers:focus {
+    transform: scale(1.1);
 }
 
 .selected-operator {
