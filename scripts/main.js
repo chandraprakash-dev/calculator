@@ -7,6 +7,9 @@ let expr = '';
 
 // flag e for checking presence in equals
 let e;
+
+//flag s for checking presence in saveNumber
+let s;
 /***********************************************************************************************/
 function outputContent(val) {
     output.textContent = val;
@@ -63,26 +66,17 @@ function reset() {
 }
 
 function deleteInput() {
+    if (!s) return;
     a = a.toString();
     b = b.toString();
 
-    if(b == ''){
-        if(op == '') {
-            a = a.slice(0, -1);
-            outputContent(a);   
-        }
-        else {
-            b = a.slice(0, -1);
-            outputContent(b);
-        }
-    } else {
-        if(e) {
-            a = a.slice(0, -1);
-            outputContent(a);
-        } else {
-            b = b.slice(0, -1);
-            outputContent(b);
-        }
+    if(op == '') {
+        a = a.slice(0, -1);
+        outputContent(a);   
+    }
+    else {
+        b = b.slice(0, -1);
+        outputContent(b);
     }
 }
 
@@ -201,6 +195,7 @@ function handleBinaryOperator() {
         expr = '';
         e = false;
     }
+    if(s) s = false;
 
     lastOp = op;
     if(lastOp != ''){
@@ -230,6 +225,7 @@ function handleBinaryOperator() {
 }
 
 function handleUnaryOperator() {
+    if(s) s = false;
     const selected = document.querySelector('.selected-operator');
     if(selected) selected.classList.remove('selected-operator');
 
@@ -239,6 +235,7 @@ function handleUnaryOperator() {
 
 function equals() {
     if(!e) e = true;
+    if(s) s = false;
 
     if(op != '') {
         opButton = document.querySelector(`button[value = '${op}']`);
@@ -263,8 +260,10 @@ function equals() {
 }
 
 function saveNumber() {
-    if (a == 'Not a Number') {
+    if(!s) s = true;
+    if (a == 'Not a Number' || e) {
         reset();
+        if(e) e = false;
     }
 
     const char = this.value;
