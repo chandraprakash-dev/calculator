@@ -176,7 +176,7 @@ function operateBinary(operator) {
             divide();
             break;
     }
-    if(a % 1 || a.toString().indexOf('e') !== -1) {
+    if(a % 1 || (a != "Not a Number" && a.toString().indexOf('e') !== -1) ) {
         outputContent(rounded(a));
     } else {
         outputContent(a);
