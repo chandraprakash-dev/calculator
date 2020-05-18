@@ -21,7 +21,7 @@ header {
 }
 
 main{
-    background-color: blue;
+    background-color: rgb(0, 140, 255);
     box-shadow:0 0 10px 10px rgba(40, 40, 160, 0.979);
     border-radius: 50px;
     width: 350px;
@@ -72,6 +72,7 @@ main{
 
 #button-area {
     height: 90%;
+    background-color: blue;
     grid-area: work-area;
     display: grid;
     grid-auto-flow: row;
@@ -114,11 +115,21 @@ button {
     /* border-radius: 50%; */
 }
 
-button:focus {
-    outline: none;
+.right {
+    background-color: rgb(54, 54, 218);
+}
+.right button {
+    background-color: rgb(35, 35, 194);
+    box-shadow: 0 0 5px 5px rgb(54, 57, 197);
 }
 
-.numbers:hover, .numbers:focus {
+button:focus {
+    outline: none;
+    background-color: white;
+    color:black;
+}
+
+.numbers:hover {
     background-color: white;
     color:black;
 }
