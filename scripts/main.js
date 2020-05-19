@@ -11,6 +11,10 @@ let e;
 //flag s for checking presence in saveNumber
 let s;
 /***********************************************************************************************/
+function removeStyle(e) {
+    console.log(e);
+}
+
 function outputContent(val) {
     output.textContent = val;
     if (output.textContent == ''){
@@ -333,4 +337,7 @@ window.addEventListener('keydown', keyboardInput);
 const output = document.querySelector('#output p');
 const exprDisplay = document.querySelector('#expression p');
 
+
+const buttons = document.querySelector('button');
+buttons.addEventListener('transitionend', removeStyle);
 

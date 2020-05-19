@@ -110,7 +110,7 @@ button {
     border-radius: 50%;
     font-size: larger;
     font-weight: 700;
-    /* border-radius: 50%; */
+    transition: all;
 }
 
 .right {
@@ -121,7 +121,7 @@ button {
     box-shadow: 0 0 5px 5px rgb(54, 57, 197);
 }
 
-button:focus {
+/* button:focus {
     outline: none;
     background-color: white;
     color:black;
@@ -141,7 +141,7 @@ button:focus {
     color: black;
     outline: none;
     box-shadow: none;
-}
+} */
 
 
 footer {
