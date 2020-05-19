@@ -256,10 +256,12 @@ function saveNumber(value) {
     const char = value;
     if (op == '') {
         if ( (char == '0' && a == '') || (char == '.' && a.toString().indexOf('.') != -1) ) return;
+        if(a == '' && char == '.') a = '0'
         a += char;
         outputContent(a);
     } else {
         if ( (char == '0' && b == '') || (char == '.' && b.toString().indexOf('.') != -1) )return;
+        if(b == '' && char == '.') b = '0'
         b += char;
         outputContent(b);
     }
@@ -329,7 +331,4 @@ const exprDisplay = document.querySelector('#expression p');
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => button.addEventListener('click', selectFunction));
-
-
-// buttons.addEventListener('transitionend', removeStyle);
 
