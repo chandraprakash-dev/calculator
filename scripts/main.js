@@ -64,9 +64,6 @@ function reset() {
 
     outputContent(+a);
     exprContent(expr);
-
-    const selected = document.querySelector('.selected-operator');
-    if(selected) selected.classList.remove('selected-operator');
 }
 
 function deleteInput() {
@@ -192,7 +189,7 @@ function operateUnary(operator) {
     }
 }
 
-function handleBinaryOperator() {
+function handleBinaryOperator(value) {
     // If we just came from =, clear value in b and expr
     if(e) {
         b = '';
@@ -202,14 +199,7 @@ function handleBinaryOperator() {
     if(s) s = false;
 
     lastOp = op;
-    if(lastOp != ''){
-        lastOpButton = document.querySelector(`button[value = '${lastOp}']`);
-        lastOpButton.classList.remove('selected-operator');
-    }
-    
-    op = this.value;
-    opButton = document.querySelector(`button[value = '${op}']`);
-    opButton.classList.add('selected-operator');
+    op = value;
     
     if(a == 'Not a Number') return;  
     if(b == '') {
@@ -228,23 +218,16 @@ function handleBinaryOperator() {
     b = '';  
 }
 
-function handleUnaryOperator() {
+function handleUnaryOperator(value) {
     if(s) s = false;
-    const selected = document.querySelector('.selected-operator');
-    if(selected) selected.classList.remove('selected-operator');
 
     if(a == '' || a == 'Not a Number') return;
-    operateUnary(this.value);
+    operateUnary(value);
 }
 
 function equals() {
     if(!e) e = true;
     if(s) s = false;
-
-    if(op != '') {
-        opButton = document.querySelector(`button[value = '${op}']`);
-        opButton.classList.remove('selected-operator');
-    }
     
     if(a == 'Not a Number') return;
     if (op == '') {
@@ -263,17 +246,14 @@ function equals() {
     operateBinary(op);
 }
 
-function saveNumber() {
+function saveNumber(value) {
     if(!s) s = true;
     if (a == 'Not a Number' || e) {
         reset();
         if(e) e = false;
     }
 
-    const char = this.value;
-    const text = output.textContent;
-
-    
+    const char = value;
     if (op == '') {
         if ( (char == '0' && a == '') || (char == '.' && a.toString().indexOf('.') != -1) ) return;
         a += char;
@@ -294,6 +274,35 @@ function keyboardInput(e) {
     if(!button) return;
     button.click();
 }
+
+function selectFunction() {
+    let btn = this.value; 
+    if(!isNaN(+btn) || btn == '.') {
+        saveNumber(btn);
+    } else {
+        switch(btn) {
+            case '+':
+            case '-':
+            case '*':
+            case '/':
+                handleBinaryOperator(btn);
+                break;
+            case '+-':
+            case '%':
+                handleUnaryOperator(btn);
+                break;
+            case '=':
+                equals();
+                break;
+            case 'AC':
+                reset();
+                break;
+            case 'del':
+                deleteInput();
+                break;
+        }
+    }
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Main code starts from here
 //
@@ -313,31 +322,14 @@ for (let i = 9; i >= 0; i --) {
     buttonArea.appendChild(tmpDiv);
 }
 
-// Select relevant elements and add appropriate event listeners
-const numbers = document.querySelectorAll('.numbers');
-numbers.forEach(number => number.addEventListener('click', saveNumber));
-
-const binaryOperators = document.querySelectorAll('.binary-operators');
-binaryOperators.forEach(operator => operator.addEventListener('click',handleBinaryOperator));
-
-const equalOperator = document.querySelector(`button[value = '=']`);
-equalOperator.addEventListener('click', equals);
-
-const unaryOperators = document.querySelectorAll('.unary-operators');
-unaryOperators.forEach(unaryOperator => unaryOperator.addEventListener('click', handleUnaryOperator));
-
-const acButton = document.querySelector(`button[value = 'AC']`);
-acButton.addEventListener('click', reset);
-
-const delButton = document.querySelector(`button[value = 'Backspace']`);
-delButton.addEventListener('click', deleteInput);
-
 window.addEventListener('keydown', keyboardInput);
 
 const output = document.querySelector('#output p');
 const exprDisplay = document.querySelector('#expression p');
 
+const buttons = document.querySelectorAll('button');
+buttons.forEach(button => button.addEventListener('click', selectFunction));
 
-const buttons = document.querySelector('button');
-buttons.addEventListener('transitionend', removeStyle);
+
+// buttons.addEventListener('transitionend', removeStyle);
 

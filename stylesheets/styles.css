@@ -113,29 +113,30 @@ button {
     transition: all;
 }
 
+ button:focus {
+    outline: none;
+    background-color: white;
+    color:black;
+}
+
 .right {
-    background-color: rgb(54, 54, 218);
+    background-color: rgb(60, 60, 216);
 }
 .right button {
     background-color: rgb(35, 35, 194);
     box-shadow: 0 0 5px 5px rgb(54, 57, 197);
 }
 
-/* button:focus {
-    outline: none;
-    background-color: white;
-    color:black;
-}
-
-.numbers:hover {
+/* .numbers:hover {
     background-color: white;
     color:black;
 }
 
 .numbers:focus {
     transform: scale(1.1);
-}
+} */
 
+/*
 .selected-operator {
     background-color: white;
     color: black;
