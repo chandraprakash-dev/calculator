@@ -16,9 +16,13 @@ body {
 }
 
 header {
+    background-color: blue;
     height: 15%;
-    text-align: center;
     padding: 20px;
+    text-align: center;
+    font-size: 3em;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 0.2em;
 }
 
 main{
@@ -130,8 +134,10 @@ button:focus {
 }
 
 footer {
+    background-color: blue;
     height: 15%;
     width: 100%;
     position: absolute;
     bottom: 0;
+    text-align: center;
 }
