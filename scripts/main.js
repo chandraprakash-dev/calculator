@@ -278,6 +278,8 @@ function keyboardInput(e) {
 }
 
 function selectFunction() {
+    this.classList.add('selected');  
+
     let btn = this.value; 
     if(!isNaN(+btn) || btn == '.') {
         saveNumber(btn);

@@ -133,6 +133,10 @@ button:focus {
     box-shadow: 0 0 5px 5px rgb(0, 3, 165);
 }
 
+.selected {
+    transform: scale(1.1);
+}
+
 footer {
     background-color: blue;
     height: 15%;
