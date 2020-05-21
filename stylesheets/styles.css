@@ -113,7 +113,7 @@ button {
     border-radius: 50%;
     font-size: larger;
     font-weight: 700;
-    transition: all;
+    transition: all .07s ease;
 }
 
 button:focus {
@@ -134,7 +134,10 @@ button:focus {
 }
 
 .selected {
-    transform: scale(1.1);
+    transform: scale(0.9);
+    background-color: white !important;
+    box-shadow: 0 0 1px 1px whitesmoke;
+    color: black;
 }
 
 footer {

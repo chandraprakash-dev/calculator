@@ -12,7 +12,10 @@ let e;
 let s;
 /***********************************************************************************************/
 function removeStyle(e) {
+
     console.log(e);
+    if(e.propertyName !== 'transform') return;
+    this.classList.remove('playing');
 }
 
 function outputContent(val) {
@@ -333,4 +336,6 @@ const exprDisplay = document.querySelector('#expression p');
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => button.addEventListener('click', selectFunction));
+buttons.forEach(button => button.addEventListener('transitionend', removeStyle));
+
 
