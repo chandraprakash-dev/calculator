@@ -20,7 +20,7 @@ function removeStyle(e) {
 
 function outputContent(val) {
     output.textContent = val;
-    if (output.textContent == ''){
+    if (output.textContent === ''){
         output.textContent = +output.textContent;  
     }
     fitText(output);
@@ -40,7 +40,7 @@ function fitText(element) {
     let fontSize = parseInt(style.getPropertyValue('font-size'));
     if (!isOverflown(output)) {
         // reset the font size if it is not overflowing anymore
-        if(fontSize != 40) output.style.fontSize = '2.5em';
+        if(fontSize !== 40) output.style.fontSize = '2.5em';
         return;
     }
 
