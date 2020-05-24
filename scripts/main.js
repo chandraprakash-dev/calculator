@@ -11,11 +11,19 @@ let e;
 //flag s for checking presence in saveNumber
 let s;
 /***********************************************************************************************/
-function removeStyle(e) {
+function removeHoverStyle() {
+    this.classList.remove('hover');
+}
 
+function addHoverStyle() {
+    this.classList.add('hover');
+}
+
+
+function removeBackgroundStyle(e) {
+    if(e.propertyName !== 'color') return;
     console.log(e);
-    if(e.propertyName !== 'transform') return;
-    this.classList.remove('playing');
+    this.classList.remove('selected');
 }
 
 function outputContent(val) {
@@ -272,7 +280,8 @@ function saveNumber(value) {
 
 function keyboardInput(e) {
     let button = document.querySelector(`button[value='${e.key}']`);
-    if(e.key == 'Enter'){
+
+    if(e.key === 'Enter'){
         e.preventDefault();
         button = document.querySelector('button[value=\'=\']');
     }
@@ -283,8 +292,8 @@ function keyboardInput(e) {
 function selectFunction() {
     this.classList.add('selected');  
 
-    let btn = this.value; 
-    if(!isNaN(+btn) || btn == '.') {
+    let btn = this.value;
+    if(!isNaN(+btn) || btn === '.') {
         saveNumber(btn);
     } else {
         switch(btn) {
@@ -304,7 +313,7 @@ function selectFunction() {
             case 'AC':
                 reset();
                 break;
-            case 'del':
+            case 'Backspace':
                 deleteInput();
                 break;
         }
@@ -336,6 +345,8 @@ const exprDisplay = document.querySelector('#expression p');
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => button.addEventListener('click', selectFunction));
-buttons.forEach(button => button.addEventListener('transitionend', removeStyle));
+buttons.forEach(button => button.addEventListener('mouseenter', addHoverStyle));
+buttons.forEach(button => button.addEventListener('mouseleave', removeHoverStyle));
+buttons.forEach(button => button.addEventListener('transitionend', removeBackgroundStyle));
 
 
