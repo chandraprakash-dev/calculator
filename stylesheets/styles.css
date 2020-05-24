@@ -8,7 +8,8 @@ html {
 }
 
 body {
-    background-color: rgb(90, 44, 255);
+    background-color: rgb(10, 245, 210);
+    /*background-color: white;*/
     width: 100%;
     height: 100%;
     font-family: Arial, Helvetica, sans-serif;
@@ -16,18 +17,19 @@ body {
 }
 
 header {
-    background-color: blue;
+    background-color: #09ee92;
     height: 15%;
     padding: 20px;
     text-align: center;
     font-size: 3em;
+    font-weight: bolder;
     font-family: 'Courier New', Courier, monospace;
     letter-spacing: 0.2em;
 }
 
 main{
     background-color: rgb(0, 140, 255);
-    box-shadow:0 0 10px 10px rgba(40, 40, 160, 0.979);
+    box-shadow:0 0 5px 5px rgba(40, 40, 160, 0.979);
     border-radius: 50px;
     width: 350px;
     height: 60%;
@@ -139,10 +141,15 @@ button:focus {
 }
 
 footer {
-    background-color: blue;
+    background-color: #07f184;
     height: 15%;
     width: 100%;
     position: absolute;
     bottom: 0;
     text-align: center;
+}
+
+footer p {
+    margin-top: 10px;
+    font-size: large;
 }
