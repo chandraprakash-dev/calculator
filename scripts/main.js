@@ -11,15 +11,6 @@ let e;
 //flag s for checking presence in saveNumber
 let s;
 /***********************************************************************************************/
-function removeHoverStyle() {
-    this.classList.remove('hover');
-}
-
-function addHoverStyle() {
-    this.classList.add('hover');
-}
-
-
 function removeBackgroundStyle(e) {
     if(e.propertyName !== 'color') return;
     console.log(e);
@@ -345,8 +336,6 @@ const exprDisplay = document.querySelector('#expression p');
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => button.addEventListener('click', selectFunction));
-buttons.forEach(button => button.addEventListener('mouseenter', addHoverStyle));
-buttons.forEach(button => button.addEventListener('mouseleave', removeHoverStyle));
 buttons.forEach(button => button.addEventListener('transitionend', removeBackgroundStyle));
 
 
