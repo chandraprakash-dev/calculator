@@ -12,7 +12,6 @@
     <h1>CALCULATOR</h1>
 </header>
 <main>
-
     <div id="calculator">
         <div id="display">
             <div id="expression">
@@ -33,34 +32,39 @@
                 </div>
             </div>
             <div id="operators-area">
-                <div>
-                    <button value='AC'>AC</button>
+                <div class="clear">
+                    <div>
+                        <button class="operator" value='AC'>AC</button>
+                    </div>
+                    <div>
+                        <button class="operator" value='Backspace'>del</button>
+                    </div>
                 </div>
-                <div>
-                    <button value='Backspace'>del</button>
+                <div class="binary-operators">
+                    <div>
+                        <button class="binary-operator" value='*'>x</button>
+                    </div>
+                    <div>
+                        <button class="binary-operator" value='/'>÷</button>
+                    </div>
+                    <div>
+                        <button class="binary-operator" value='+'>+</button>
+                    </div>
+                    <div>
+                        <button class="binary-operator" value='-'>-</button>
+                    </div>
                 </div>
-                <div>
-                    <button class="binary-operators" value='*'>x</button>
-                </div>
-                <div>
-                    <button class="binary-operators" value='/'>÷</button>
-                </div>
-                <div>
-                    <button class="binary-operators" value='+'>+</button>
-                </div>
-                <div>
-                    <button class="binary-operators" value='-'>-</button>
-                </div>
-                <div>
-                    <button class='unary-operators' value='%'>%</button>
-                </div>
-                <div>
-                    <button value='='>=</button>
+                <div class="result">
+                    <div>
+                        <button class='unary-operators operator' value='%'>%</button>
+                    </div>
+                    <div>
+                        <button class="operator" value='='>=</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 </main>
 <footer>
     <p>Made by Chandra</p>

@@ -12,12 +12,6 @@ let e;
 let s;
 
 /***********************************************************************************************/
-function removeBackgroundStyle(e) {
-  if (e.propertyName !== 'color') return;
-  console.log(e);
-  this.classList.remove('selected');
-}
-
 function outputContent(val) {
   output.textContent = val;
   if (output.textContent === '') {
@@ -279,8 +273,6 @@ function keyboardInput(e) {
 }
 
 function selectFunction() {
-  this.classList.add('selected');
-
   let btn = this.value;
   if (!isNaN(+btn) || btn === '.') {
     saveNumber(btn);
@@ -335,6 +327,5 @@ const exprDisplay = document.querySelector('#expression p');
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => button.addEventListener('click', selectFunction));
-buttons.forEach(button => button.addEventListener('transitionend', removeBackgroundStyle));
 
 

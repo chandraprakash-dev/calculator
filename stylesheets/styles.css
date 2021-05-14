@@ -13,42 +13,51 @@ header {
     padding: 20px;
     text-align: center;
     color: black;
-    background-color: yellow;
+    /*background-color: yellow;*/
     font-weight: bolder;
     font-family: 'Courier New', Courier, monospace;
     letter-spacing: 0.2em;
 }
 
 main{
-    background-color: red;
     flex: 2;
 }
 
 footer {
-    background-color: green;
+    background-color: black;
+    color: #646262;
+    text-align: center;
+    padding-top: 10px;
 }
 
 /***************************TOP LEVEL DIVS STYLING ENDS*********************************/
 
 /* style top level calculator divs */
-
 #calculator {
-    height: 500px;
-    width: 400px;
-    background-color: pink;
-    display: flex;
+    /* help accommodate height and weight according to its content */
+    display: inline-block;
+    border-radius: 20px;
+    box-shadow: 0 0 5px 5px lightgray;
+    background-color: white;
+    padding: 10px;
     flex-direction: column;
-    margin: 50px auto 0 auto;
+    position: relative;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #display {
-    background-color: tomato;
+    width: 100%;
     height: 100px;
+    color: black;
     text-align: end;
+    border: 2px solid black;
+    border-radius: 5px 5px 0 0;
+    display: inline-block;
 }
 
 #buttons-area {
-    background-color: lightgreen;
     flex: 2;
     display: flex;
 }
@@ -65,25 +74,32 @@ footer {
 
 /* style numbers and operators */
 #numbers-area {
-    flex: 60%;
-    background-color: blue;
+    flex: 55%;
     display: grid;
+    background-color: #f8e060;
     grid-template-columns: repeat(3,1fr);
-    grid-template-areas: "num-7 num-8 num-9 ... ..."
-                         "num-4 num-5 num-6 ... ..."
-                         "num-1 num-2 num-3 ... ..."
-                         "sign num-0 decimal ... ...";
+    grid-template-areas: "num-7 num-8 num-9"
+                         "num-4 num-5 num-6"
+                         "num-1 num-2 num-3"
+                         "sign num-0 decimal";
+    grid-row-gap: 10px;
+    grid-column-gap: 5px;
     justify-items: center;
     align-items: center;
+    padding: 10px;
+    border-bottom-left-radius: 20px;
 }
 
 #operators-area {
-    flex: 40%;
-    background-color: deepskyblue;
+    flex: 45%;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    justify-items: center;
-    align-items: center;
+    padding: 10px;
+    background-color: #797979;
+    grid-template-rows: 1fr 2fr 1fr;
+    grid-row-gap: 10px;
+    grid-column-gap: 5px;
+    border-bottom-right-radius: 20px;
+
 }
 
 /* style third level divs in calculator */
@@ -113,21 +129,54 @@ footer {
     grid-area: decimal;
 }
 
+/* style various buttons in operator-area */
+.binary-operators {
+    background-color: gold;
+    border-radius: 15px;
+    display: grid;
+    grid-template: repeat(2, 1fr)/ repeat(2, 1fr);
+    grid-row-gap: 10px;
+    grid-column-gap: 5px;
+    justify-items: center;
+    align-items: center;
+    padding: 5px;
+}
+
+.clear, .result {
+    flex: 1;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+}
+
+/* style 4th level divs inside operator area divs */
+.clear div, .result div {
+    text-align: center;
+    flex: 50%
+}
+
+.binary-operator {
+    background-color: white;
+    color: black;
+}
+
+.operator {
+    background-color: gold;
+    color: black;
+}
 /* styling for buttons */
 
 button {
-    width: 55px;
-    height: 55px;
+    width: 45px;
+    height: 45px;
+    padding: 5px;
     cursor: pointer;
-    background-color: rgb(0, 0, 168);
-    box-shadow:0 0 5px 5px blue;
+    background-color: #ff8c00;
     color: white;
     border: none;
-
     border-radius: 50%;
     font-size: larger;
     font-weight: 700;
-    transition: all 0.09s ease;
 }
 
 button:focus {
@@ -135,21 +184,16 @@ button:focus {
 }
 
 button:hover {
-    background-color: white;
+    background-color: lightsalmon;
+    color: white;
 }
 
 button:active {
     transform: scale(0.9);
 }
 
-
-/*.hover {*/
-/*    background-color: white !important;*/
-/*    color:black;*/
-/*}*/
-
-/*.selected {*/
-/*    background-color: white !important;*/
-/*    color: black;*/
-/*}*/
+#numbers-area button:hover {
+    background-color: white;
+    color: black;
+}
 
