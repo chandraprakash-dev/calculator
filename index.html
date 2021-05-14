@@ -1,73 +1,71 @@
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="UTF-8">
-        <title>Calculator | SeaWee games</title>
-        <link rel="icon" href="assets/images/logo.png" type="image/icon type"/>
-        <link rel="stylesheet" href="stylesheets/reset.css" type="text/css"/>
-        <link rel="stylesheet" href="stylesheets/styles.css" type="text/css"/>
-    </head>
-    <body>
-        <header>
-            <h1>CALCULATOR</h1>
-        </header>
-        <main>
-            <div id="calculator">
-                <div id="display">
-                    <div id="expression">
-                        <p></p>
-                    </div>
-                    <div id="output">
-                        <p>0</p>
-                    </div>
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator | SeaWee games</title>
+    <link rel="icon" href="assets/images/logo.png" type="image/icon type"/>
+    <link rel="stylesheet" href="stylesheets/reset.css" type="text/css"/>
+    <link rel="stylesheet" href="stylesheets/styles.css" type="text/css"/>
+</head>
+<body>
+<header>
+    <h1>CALCULATOR</h1>
+</header>
+<main>
+
+    <div id="calculator">
+        <div id="display">
+            <div id="expression">
+                <p></p>
+            </div>
+            <div id="output">
+                <p>0</p>
+            </div>
+        </div>
+
+        <div id="buttons-area">
+            <div id="numbers-area">
+                <div id='sign'>
+                    <button class='unary-operators' value='+-'>+/-</button>
                 </div>
-                <div id="button-area">
-                    <div id='+-'>
-                        <button class='unary-operators' value='+-'>+/-</button>
-                    </div>
-                    <div id='.'>
-                        <button class='numbers' value=".">.</button>
-                    </div>
-                    <div class="right">
-                        <button value='AC'>AC</button>
-                    </div>
-                    <div class="right">
-                        <button value='Backspace'>del</button>
-                    </div>
-                    <div class="right">
-                        <button class="binary-operators" value='*'>x</button>
-                    </div>
-                    <div class='right'>
-                        <button class="binary-operators" value='/'>÷</button>
-                    </div>
-                    <div class='right'>
-                        <button class="binary-operators" value='+'>+</button>
-                    </div>
-                    <div class='right'>
-                        <button class="binary-operators" value='-'>-</button>
-                    </div>
-                    <div class="right">
-                        <button class='unary-operators' value='%'>%</button>
-                    </div>
-                    <div class="right">
-                        <button value='='>=</button>
-                    </div>
+                <div id='decimal'>
+                    <button class='numbers' value=".">.</button>
                 </div>
             </div>
-        </main>
-        <footer>
-            <p>Hosted with ❤️️ by GitHub</p>
-            <p>
-                If you've enjoyed this or can help improve,
-                <a href="https://github.com/chandraprakash-dev/calculator" target="_blank">
-                    check out on github
-                </a>
-            </p>
-            <p>
-                If you wish to help me on my journey to becoming a web developer,
-                <a href="#">Donate</a>
-            </p>
-        </footer>
-        <script src="scripts/main.js"></script>
-    </body>
+            <div id="operators-area">
+                <div>
+                    <button value='AC'>AC</button>
+                </div>
+                <div>
+                    <button value='Backspace'>del</button>
+                </div>
+                <div>
+                    <button class="binary-operators" value='*'>x</button>
+                </div>
+                <div>
+                    <button class="binary-operators" value='/'>÷</button>
+                </div>
+                <div>
+                    <button class="binary-operators" value='+'>+</button>
+                </div>
+                <div>
+                    <button class="binary-operators" value='-'>-</button>
+                </div>
+                <div>
+                    <button class='unary-operators' value='%'>%</button>
+                </div>
+                <div>
+                    <button value='='>=</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+<footer>
+    <p>Made by Chandra</p>
+    <p>Hosted with ❤️️ by GitHub</p>
+</footer>
+<script src="scripts/main.js"></script>
+</body>
 </html>

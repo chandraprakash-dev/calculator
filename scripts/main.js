@@ -314,18 +314,18 @@ function selectFunction() {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Create divs with buttons for numbers and append them to button area
-const buttonArea = document.querySelector('#button-area');
+// Create divs with buttons for numbers and append them to numbers div
+const numbersArea = document.querySelector('#numbers-area');
 for (let i = 9; i >= 0; i--) {
   const tmpDiv = document.createElement('div');
   tmpDiv.setAttribute('id', i);
   const tmpButton = document.createElement('button');
-  tmpButton.classList.add('numbers');
+  tmpButton.classList.add('numberButtons');
   tmpButton.value = i;
   tmpButton.textContent = i;
   tmpDiv.appendChild(tmpButton);
   tmpDiv.style.gridArea = `num-${i}`;
-  buttonArea.appendChild(tmpDiv);
+  numbersArea.appendChild(tmpDiv);
 }
 
 window.addEventListener('keydown', keyboardInput);
