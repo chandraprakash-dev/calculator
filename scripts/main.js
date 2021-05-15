@@ -272,7 +272,13 @@ function keyboardInput(e) {
   button.click();
 }
 
+function playClickSound() {
+  const audio = document.querySelector('.mouse-click');
+  audio.play();
+}
+
 function selectFunction() {
+  playClickSound();
   let btn = this.value;
   if (!isNaN(+btn) || btn === '.') {
     saveNumber(btn);
