@@ -163,11 +163,11 @@ function operateBinary(operator) {
       divide();
       break;
   }
-  if (a % 1 || (a !== "Not a Number" && a.toString().indexOf('e') !== -1)) {
-    outputContent(rounded(a));
-  } else {
-    outputContent(a);
-  }
+  // if (a % 1 || (a !== "Not a Number" && a.toString().indexOf('e') !== -1)) {
+  //   return rounded(a);
+  // } else {
+    return a;
+  // }
 }
 
 function operateUnary(operator) {
@@ -183,36 +183,42 @@ function operateUnary(operator) {
 
 function handleBinaryOperator(value) {
   // If we just came from =, clear value in b and expr
-  if (e) {
-    b = '';
-    expr = '';
-    e = false;
-  }
-  if (s) s = false;
+  // if (e) {
+  //   b = '';
+  //   expr = '';
+  //   e = false;
+  // }
+  // if (s) s = false;
 
-  lastOp = op;
+  let lastOp = op;
   op = value;
 
+  // Don't perform any operation/further operations on NaN
   if (a === 'Not a Number') return;
   if (b === '') {
+    // expression starts only after a and the first operator are clicked
+    // Since b is still empty, nothing to do other than update expression
     expr = +a + op;
     exprContent(expr);
     return;
   }
 
-  // update expr for subsequent operations
+  // When b is entered and the next operator is clicked, expr would be of form
+  // a op. Now, we have to update it to a op b curr_op for subsequent operations
   expr += +b + op;
   exprContent(expr);
 
-  operateBinary(lastOp);
-
-  // reset b to take in next operand
+  // operation is always done on the previous op, not the current op
+  const result = operateBinary(lastOp);
+  outputContent(result);
+  // reset b to take in next operand as the result of the operation would be stored in a
   b = '';
 }
 
 function handleUnaryOperator(value) {
-  if (s) s = false;
+  // if (s) s = false;
 
+  // unary operator needs at least one value. No operation can be done on NaN
   if (a === '' || a === 'Not a Number') return;
   operateUnary(value);
 }
