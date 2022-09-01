@@ -62,11 +62,12 @@ function reset() {
 }
 
 function deleteInput() {
-  if (!s) return;
+  // if (!s) return;
   a = a.toString();
   b = b.toString();
 
   if (op === '') {
+    // negative index slices from the lase, here it slices last 1 character
     a = a.slice(0, -1);
     outputContent(a);
   } else {
@@ -224,16 +225,21 @@ function handleUnaryOperator(value) {
 }
 
 function equals() {
-  if (!e) e = true;
-  if (s) s = false;
+  // if (!e) e = true;
+  // if (s) s = false;
 
   if (a === 'Not a Number') return;
+
+  // if only one operand is entered, and no operator has been clicked
+  // update the expression, nothing else to do
   if (op === '') {
     expr = +a + '=';
     exprContent(expr);
     return;
   }
 
+  // if operator is entered but no second operand
+  // perform the operator on the first value
   if (b === '') {
     b = +a;
   }
@@ -241,7 +247,8 @@ function equals() {
   expr = +a + op + +b + '=';
   exprContent(expr);
 
-  operateBinary(op);
+  const result = operateBinary(op);
+  outputContent(result);
 }
 
 function saveNumber(value) {
