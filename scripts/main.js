@@ -18,12 +18,12 @@ function outputContent(val) {
   if (output.textContent === '') {
     output.textContent = +output.textContent;
   }
-  // fitText(output);
+  fitText(output);
 }
 
 function exprContent(val) {
   exprDisplay.textContent = val;
-  // fitText(exprDisplay);
+  fitText(exprDisplay);
 }
 
 function fitText(element) {
@@ -122,7 +122,8 @@ function toggleSign() {
       outputContent(b);
     }
   } else {
-    if (e) {
+    // If we just evaluated the expression with =, the result is stored in a
+    if (equalsFlag) {
       a *= -1;
       outputContent(a);
     } else {
@@ -167,11 +168,13 @@ function operateBinary(operator) {
       divide();
       break;
   }
-  // if (a % 1 || (a !== "Not a Number" && a.toString().indexOf('e') !== -1)) {
-  //   return rounded(a);
-  // } else {
+  // if the result is a decimal or is so large that it is represented with e notation,
+  // call rounded function to round the result to a maximum of 6 decimal points
+  if (a % 1 || (a !== "Not a Number" && a.toString().indexOf('e') !== -1)) {
+    return rounded(a);
+  } else {
     return a;
-  // }
+  }
 }
 
 function operateUnary(operator) {
@@ -305,16 +308,17 @@ function selectFunction() {
     outputContent(num);
   } else {
     // if something else other than number is clicked, it is an operator
-    saveNumberFlag = false;
     switch (btn) {
       case '+':
       case '-':
       case '*':
       case '/':
+        saveNumberFlag = false;
         handleBinaryOperator(btn);
         break;
       case '+-':
       case '%':
+        saveNumberFlag = false;
         handleUnaryOperator(btn);
         break;
       case '=':
