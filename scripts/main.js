@@ -6,10 +6,11 @@ let op = '';
 let expr = '';
 
 // flag e for checking presence in equals
-let e;
+let equalsFlag;
 
-//flag s for checking presence in saveNumber
-let s;
+// saveNumberFlag is used to check if we are in the process of saving a number. This is needed because we can
+// delete input only when we are saving a number and not after an operation has been performed or any other stage
+let saveNumberFlag;
 
 /***********************************************************************************************/
 function outputContent(val) {
@@ -62,12 +63,14 @@ function reset() {
 }
 
 function deleteInput() {
-  // if (!s) return;
+  // We can delete input only if we are in the process of saving a number
+  if (!saveNumberFlag) return;
+
   a = a.toString();
   b = b.toString();
 
   if (op === '') {
-    // negative index slices from the lase, here it slices last 1 character
+    // negative index slices from the last, here it slices last 1 character
     a = a.slice(0, -1);
     outputContent(a);
   } else {
@@ -183,13 +186,13 @@ function operateUnary(operator) {
 }
 
 function handleBinaryOperator(value) {
-  // If we just came from =, clear value in b and expr
-  // if (e) {
-  //   b = '';
-  //   expr = '';
-  //   e = false;
-  // }
-  // if (s) s = false;
+  // If we just came from =, We are trying to continue the calculation
+  // with the previous result, clear value in b and expr to take new values
+  if (equalsFlag) {
+    b = '';
+    expr = '';
+    equalsFlag = false;
+  }
 
   let lastOp = op;
   op = value;
@@ -217,17 +220,12 @@ function handleBinaryOperator(value) {
 }
 
 function handleUnaryOperator(value) {
-  // if (s) s = false;
-
   // unary operator needs at least one value. No operation can be done on NaN
   if (a === '' || a === 'Not a Number') return;
   operateUnary(value);
 }
 
 function equals() {
-  // if (!e) e = true;
-  // if (s) s = false;
-
   if (a === 'Not a Number') return;
 
   // if only one operand is entered, and no operator has been clicked
@@ -252,11 +250,13 @@ function equals() {
 }
 
 function saveNumber(value) {
-  // if (!s) s = true;
-  // if (a === 'Not a Number' || e) {
-  //   reset();
-  //   if (e) e = false;
-  // }
+  // If some previous operation resulted in NaN, we need to start everything afresh
+  // If we just calculated the result of the expression using =, it needs to be followed
+  // by an operator to continue the calculation. If instead, a number is entered, start calculation afresh
+  if (a === 'Not a Number' || equalsFlag) {
+    reset();
+    equalsFlag = false;
+  }
 
   const char = value;
   // If the operator has not been typed yet, then it is the first operand a
@@ -300,10 +300,12 @@ function selectFunction() {
   // Check if it is a number. To check if a string is a number,
   // we need to check if it is not NaN
   if (!isNaN(+btn) || btn === '.') {
+    saveNumberFlag = true;
     const num = saveNumber(btn);
     outputContent(num);
   } else {
     // if something else other than number is clicked, it is an operator
+    saveNumberFlag = false;
     switch (btn) {
       case '+':
       case '-':
@@ -316,6 +318,7 @@ function selectFunction() {
         handleUnaryOperator(btn);
         break;
       case '=':
+        equalsFlag = true;
         equals();
         break;
       case 'AC':
