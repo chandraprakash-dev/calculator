@@ -170,11 +170,11 @@ function operateBinary(operator) {
   }
   // if the result is a decimal or is so large that it is represented with e notation,
   // call rounded function to round the result to a maximum of 6 decimal points
-  if (a % 1 || (a !== "Not a Number" && a.toString().indexOf('e') !== -1)) {
-    return rounded(a);
-  } else {
-    return a;
+  if ( a% 1 || (a !== "Not a Number" && a.toString().indexOf('e') !== -1) ) {
+    a = rounded(a);
   }
+  return a;
+
 }
 
 function operateUnary(operator) {
@@ -271,12 +271,12 @@ function saveNumber(value) {
     if (a === '' && char === '.') a = '0'
     // Add the characters typed to the operand a
     a += char;
-    return a;
+    outputContent(a);
   } else {
     if ((char === '0' && b === '') || (char === '.' && b.toString().indexOf('.') !== -1)) return;
     if (b === '' && char === '.') b = '0'
     b += char;
-    return b;
+    outputContent(b);
   }
 }
 
@@ -304,8 +304,7 @@ function selectFunction() {
   // we need to check if it is not NaN
   if (!isNaN(+btn) || btn === '.') {
     saveNumberFlag = true;
-    const num = saveNumber(btn);
-    outputContent(num);
+    saveNumber(btn);
   } else {
     // if something else other than number is clicked, it is an operator
     switch (btn) {
