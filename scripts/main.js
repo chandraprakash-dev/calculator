@@ -17,7 +17,7 @@ function outputContent(val) {
   if (output.textContent === '') {
     output.textContent = +output.textContent;
   }
-  fitText(output);
+  // fitText(output);
 }
 
 function exprContent(val) {
@@ -45,8 +45,6 @@ function fitText(element) {
       output.style.fontSize = fontSize + "px";
     }
   }
-
-
 }
 
 function isOverflown(element) {
@@ -68,7 +66,7 @@ function deleteInput() {
   a = a.toString();
   b = b.toString();
 
-  if (op == '') {
+  if (op === '') {
     a = a.slice(0, -1);
     outputContent(a);
   } else {
@@ -103,7 +101,7 @@ function multiply() {
 }
 
 function divide() {
-  if (b == 0) {
+  if (b === 0) {
     a = 'Not a Number';
     return;
   }
@@ -111,8 +109,8 @@ function divide() {
 }
 
 function toggleSign() {
-  if (b == '') {
-    if (op == '') {
+  if (b === '') {
+    if (op === '') {
       a *= -1;
       outputContent(a);
     } else {
@@ -131,8 +129,8 @@ function toggleSign() {
 }
 
 function percentage() {
-  if (b == '') {
-    if (op == '') {
+  if (b === '') {
+    if (op === '') {
       a /= 100;
       outputContent(a);
     } else {
@@ -165,7 +163,7 @@ function operateBinary(operator) {
       divide();
       break;
   }
-  if (a % 1 || (a != "Not a Number" && a.toString().indexOf('e') !== -1)) {
+  if (a % 1 || (a !== "Not a Number" && a.toString().indexOf('e') !== -1)) {
     outputContent(rounded(a));
   } else {
     outputContent(a);
@@ -195,8 +193,8 @@ function handleBinaryOperator(value) {
   lastOp = op;
   op = value;
 
-  if (a == 'Not a Number') return;
-  if (b == '') {
+  if (a === 'Not a Number') return;
+  if (b === '') {
     expr = +a + op;
     exprContent(expr);
     return;
@@ -215,7 +213,7 @@ function handleBinaryOperator(value) {
 function handleUnaryOperator(value) {
   if (s) s = false;
 
-  if (a == '' || a == 'Not a Number') return;
+  if (a === '' || a === 'Not a Number') return;
   operateUnary(value);
 }
 
@@ -223,14 +221,14 @@ function equals() {
   if (!e) e = true;
   if (s) s = false;
 
-  if (a == 'Not a Number') return;
-  if (op == '') {
+  if (a === 'Not a Number') return;
+  if (op === '') {
     expr = +a + '=';
     exprContent(expr);
     return;
   }
 
-  if (b == '') {
+  if (b === '') {
     b = +a;
   }
 
@@ -241,23 +239,28 @@ function equals() {
 }
 
 function saveNumber(value) {
-  if (!s) s = true;
-  if (a == 'Not a Number' || e) {
-    reset();
-    if (e) e = false;
-  }
+  // if (!s) s = true;
+  // if (a === 'Not a Number' || e) {
+  //   reset();
+  //   if (e) e = false;
+  // }
 
   const char = value;
-  if (op == '') {
-    if ((char == '0' && a == '') || (char == '.' && a.toString().indexOf('.') != -1)) return;
-    if (a == '' && char == '.') a = '0'
+  // If the operator has not been typed yet, then it is the first operand a
+  if (op === '') {
+    // The first condition is checking if this is a trailing 0, i.e a is empty yet
+    // The second condition is checking if a second decimal point is being added
+    if ((char === '0' && a === '') || (char === '.' && a.toString().indexOf('.') !== -1)) return;
+    // If the number is starting with a decimal, then it has to be 0.something
+    if (a === '' && char === '.') a = '0'
+    // Add the characters typed to the operand a
     a += char;
-    outputContent(a);
+    return a;
   } else {
-    if ((char == '0' && b == '') || (char == '.' && b.toString().indexOf('.') != -1)) return;
-    if (b == '' && char == '.') b = '0'
+    if ((char === '0' && b === '') || (char === '.' && b.toString().indexOf('.') !== -1)) return;
+    if (b === '' && char === '.') b = '0'
     b += char;
-    outputContent(b);
+    return b;
   }
 }
 
@@ -280,9 +283,14 @@ function playClickSound() {
 function selectFunction() {
   playClickSound();
   let btn = this.value;
+
+  // Check if it is a number. To check if a string is a number,
+  // we need to check if it is not NaN
   if (!isNaN(+btn) || btn === '.') {
-    saveNumber(btn);
+    const num = saveNumber(btn);
+    outputContent(num);
   } else {
+    // if something else other than number is clicked, it is an operator
     switch (btn) {
       case '+':
       case '-':
